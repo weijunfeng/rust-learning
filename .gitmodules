@@ -1,0 +1,45 @@
+[submodule "rust/rust-android-gradle"]
+	path = rust/mozilla/rust-android-gradle
+	url = https://github.com/mozilla/rust-android-gradle.git
+[submodule "rust/RetouchPic"]
+	path = rust/RetouchPic
+	url = https://github.com/whitestarlau/RetouchPic
+[submodule "rust/cargo-ndk-android-gradle"]
+	path = rust/cargo-ndk-android-gradle
+	url = https://github.com/willir/cargo-ndk-android-gradle.git
+[submodule "rust/num"]
+	path = rust/num
+	url = https://github.com/rust-num/num.git
+[submodule "rust/sunface/rust-course"]
+	path = rust/sunface/rust-course
+	url = https://github.com/sunface/rust-course.git
+[submodule "rust/sunface/rust-by-practice"]
+	path = rust/sunface/rust-by-practice
+	url = https://github.com/sunface/rust-by-practice.git
+[submodule "rust/sunface/new-rusty-book"]
+	path = rust/sunface/new-rusty-book
+	url = https://github.com/sunface/new-rusty-book.git
+[submodule "rust/sunface/tokio-course"]
+	path = rust/sunface/tokio-course
+	url = https://github.com/sunface/tokio-course.git
+[submodule "rust/sunface/too-many-lists"]
+	path = rust/sunface/too-many-lists
+	url = https://github.com/sunface/too-many-lists.git
+[submodule "rust/rust-lang/book"]
+	path = rust/rust-lang/book
+	url = https://github.com/rust-lang/book.git
+[submodule "rust/zino"]
+	path = rust/zino
+	url = https://github.com/zino-rs/zino.git
+[submodule "rust/jni/jni-rs"]
+	path = rust/jni/jni-rs
+	url = https://github.com/jni-rs/jni-rs.git
+[submodule "rust/FeatureProbe/client-sdk-mobile"]
+	path = rust/FeatureProbe/client-sdk-mobile
+	url = https://github.com/FeatureProbe/client-sdk-mobile.git
+[submodule "rust/mozilla/application-services"]
+	path = rust/mozilla/application-services
+	url = https://github.com/mozilla/application-services.git
+[submodule "rust/mozilla/rust-android-gradle"]
+	path = rust/mozilla/rust-android-gradle
+	url = https://github.com/mozilla/rust-android-gradle.git
