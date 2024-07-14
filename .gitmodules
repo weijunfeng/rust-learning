@@ -43,3 +43,6 @@
 [submodule "rust/mozilla/rust-android-gradle"]
 	path = rust/mozilla/rust-android-gradle
 	url = https://github.com/mozilla/rust-android-gradle.git
+[submodule "KaiserY/trpl-zh-cn"]
+	path = KaiserY/trpl-zh-cn
+	url = https://github.com/KaiserY/trpl-zh-cn.git
