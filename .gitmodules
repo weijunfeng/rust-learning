@@ -46,3 +46,6 @@
 [submodule "KaiserY/trpl-zh-cn"]
 	path = KaiserY/trpl-zh-cn
 	url = https://github.com/KaiserY/trpl-zh-cn.git
+[submodule "rust/rust-on-ios"]
+	path = rust/rust-on-ios
+	url = https://github.com/brotskydotcom/rust-on-ios.git
