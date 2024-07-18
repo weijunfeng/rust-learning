@@ -49,3 +49,6 @@
 [submodule "rust/rust-on-ios"]
 	path = rust/rust-on-ios
 	url = https://github.com/brotskydotcom/rust-on-ios.git
+[submodule "rust/rust-by-example"]
+	path = rust/rust-by-example
+	url = https://github.com/rust-lang/rust-by-example.git
