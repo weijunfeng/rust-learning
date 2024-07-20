@@ -1,0 +1,12 @@
+[package]
+name = "github-lib-update"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+http = "1.1.0"
+regex = "1.10.5"
+reqwest = { version = "0.12", features = ["json"] }
+error-chain = "0.12.4"
+tokio = { version = "1.38.1", features = ["rt", "rt-multi-thread", "macros"] }
+serde = { version = "1.0.204", features = ["derive"] }

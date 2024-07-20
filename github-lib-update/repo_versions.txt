@@ -1,0 +1,306 @@
+Repo { owner: "java-native-access", name: "jna", url: "https://github.com/java-native-access/jna.git" }:
+Err(
+    "response {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/releases/releases#get-the-latest-release\",\"status\":\"404\"}, for url (https://api.github.com/repos/java-native-access/jna/releases/latest)",
+)
+Ok([RepoTag { name: "v3.2.1" }, RepoTag { name: "v3.2" }, RepoTag { name: "v3.1" }, RepoTag { name: "v3.0.13" }, RepoTag { name: "v3.0.12" }])
+
+
+Repo { owner: "JetBrains", name: "compose-multiplatform", url: "https://github.com/JetBrains/compose-multiplatform" }:
+Ok(
+    RepoRelease {
+        name: "1.6.11",
+        tag_name: "v1.6.11",
+        body: "_Changes since 1.6.10_\r\n\r\n## Fixes\r\n\r\n### Multiple Platforms\r\n\r\n- [Fix endless re-layout when layout is invalidated by measure, which includes measuring `TextField(singleLine=true)` with `IntrinsicSize`](https://github.com/JetBrains/compose-multiplatform-core/pull/1355)\r\n- [Fix container size for `Dialog` centering inside `ImageComposeScene`](https://github.com/JetBrains/compose-multiplatform-core/pull/1375)\r\n\r\n### iOS\r\n\r\n- [Fix crash on iOS 12 caused by usage unavailable `UIMenuController` API](https://github.com/JetBrains/compose-multiplatform-core/pull/1361)\r\n\r\n### Desktop\r\n\r\n- [Fix `DropdownMenu`/`Popup` positioning when a window is moved to a screen with a different density](https://github.com/JetBrains/compose-multiplatform-core/pull/1333)\r\n- [Fix possible scrolling without animation on some mouse models](https://github.com/JetBrains/compose-multiplatform-core/pull/1326)\r\n\r\n### Web\r\n\r\n- [Fixed crash when `DatePicker` text field receives illegal input](https://github.com/JetBrains/compose-multiplatform-core/pull/1368)\r\n\r\n### Resources\r\n\r\n- [Fix a cached font if the resource acessor was changed](https://github.com/JetBrains/compose-multiplatform/pull/4864)\r\n\r\n### Gradle Plugin\r\n\r\n- [Fix Compose Compiler configuration for Kotlin < 2.0 when kotlin-android or kotlin-js gradle plugins are applied](https://github.com/JetBrains/compose-multiplatform/pull/4879)\r\n\r\n## Dependencies\r\n\r\n- Gradle Plugin `org.jetbrains.compose`, version `1.6.11`. Based on Jetpack Compose libraries:\r\n  - [Compiler 1.5.14](https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.5.14)\r\n  - [Runtime 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.6.7)\r\n  - [UI 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.6.7)\r\n  - [Foundation 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.6.7)\r\n  - [Material 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-material#1.6.7)\r\n  - [Material3 1.2.1](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.2.1)\r\n\r\n- Lifecycle libraries `org.jetbrains.androidx.lifecycle:lifecycle-*:2.8.0`. Based on [Jetpack Lifecycle 2.8.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.0)\r\n- Navigation libraries `org.jetbrains.androidx.navigation:navigation-*:2.7.0-alpha07`. Based on [Jetpack Navigation 2.7.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.7.7)",
+        published_at: "2024-06-03T16:27:08Z",
+        target_commitish: "70b8c44d32995233348773e78715f08819f43d5d",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
+
+
+Repo { owner: "JetBrains", name: "compose-multiplatform", url: "https://github.com/JetBrains/compose-multiplatform/blob/c44601a1f4ea83f9d644aa3fdc28f20331d50e8d/gradle-plugins/compose/src/main/kotlin/org/jetbrains/compose/ComposeCompilerCompatibility.kt" }:
+Ok(
+    RepoRelease {
+        name: "1.6.11",
+        tag_name: "v1.6.11",
+        body: "_Changes since 1.6.10_\r\n\r\n## Fixes\r\n\r\n### Multiple Platforms\r\n\r\n- [Fix endless re-layout when layout is invalidated by measure, which includes measuring `TextField(singleLine=true)` with `IntrinsicSize`](https://github.com/JetBrains/compose-multiplatform-core/pull/1355)\r\n- [Fix container size for `Dialog` centering inside `ImageComposeScene`](https://github.com/JetBrains/compose-multiplatform-core/pull/1375)\r\n\r\n### iOS\r\n\r\n- [Fix crash on iOS 12 caused by usage unavailable `UIMenuController` API](https://github.com/JetBrains/compose-multiplatform-core/pull/1361)\r\n\r\n### Desktop\r\n\r\n- [Fix `DropdownMenu`/`Popup` positioning when a window is moved to a screen with a different density](https://github.com/JetBrains/compose-multiplatform-core/pull/1333)\r\n- [Fix possible scrolling without animation on some mouse models](https://github.com/JetBrains/compose-multiplatform-core/pull/1326)\r\n\r\n### Web\r\n\r\n- [Fixed crash when `DatePicker` text field receives illegal input](https://github.com/JetBrains/compose-multiplatform-core/pull/1368)\r\n\r\n### Resources\r\n\r\n- [Fix a cached font if the resource acessor was changed](https://github.com/JetBrains/compose-multiplatform/pull/4864)\r\n\r\n### Gradle Plugin\r\n\r\n- [Fix Compose Compiler configuration for Kotlin < 2.0 when kotlin-android or kotlin-js gradle plugins are applied](https://github.com/JetBrains/compose-multiplatform/pull/4879)\r\n\r\n## Dependencies\r\n\r\n- Gradle Plugin `org.jetbrains.compose`, version `1.6.11`. Based on Jetpack Compose libraries:\r\n  - [Compiler 1.5.14](https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.5.14)\r\n  - [Runtime 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.6.7)\r\n  - [UI 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.6.7)\r\n  - [Foundation 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.6.7)\r\n  - [Material 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-material#1.6.7)\r\n  - [Material3 1.2.1](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.2.1)\r\n\r\n- Lifecycle libraries `org.jetbrains.androidx.lifecycle:lifecycle-*:2.8.0`. Based on [Jetpack Lifecycle 2.8.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.0)\r\n- Navigation libraries `org.jetbrains.androidx.navigation:navigation-*:2.7.0-alpha07`. Based on [Jetpack Navigation 2.7.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.7.7)",
+        published_at: "2024-06-03T16:27:08Z",
+        target_commitish: "70b8c44d32995233348773e78715f08819f43d5d",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
+
+
+Repo { owner: "Kotlin", name: "kotlinx.serialization", url: "https://github.com/Kotlin/kotlinx.serialization" }:
+Ok(
+    RepoRelease {
+        name: "1.7.1",
+        tag_name: "v1.7.1",
+        body: "This is a bugfix release that aims to fix missing `kotlinx-serialization-hocon` artifact.\r\nIt also contains experimental integration with `kotlinx-io` library.\r\nKotlin 2.0.0 is used by default.\r\n\r\n### Fixed HOCON publication\r\n\r\nSadly, 1.7.0 release was published incomplete: `kotlinx-serialization-hocon` artifact is missing from 1.7.0 and 1.7.0-RC releases.\r\nThis release fixes this problem and now `kotlinx-serialization-hocon` is available again with 1.7.1 version.\r\nNo other changes were made to this artifact. Related ticket: [#2717](https://github.com/Kotlin/kotlinx.serialization/issues/2717).\r\n\r\n### Add integration with a kotlinx-io library\r\n\r\n[`kotlinx-io`](https://github.com/Kotlin/kotlinx-io) is an official multiplatform library that provides basic IO primitives, similar to Okio. \r\nkotlinx.serialization integration is now available in a separate artifact, located at the `kotlinx-serialization-json-io` coordinates. Integration artifact provides functions similar to existing [Okio integration](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json-okio/kotlinx.serialization.json.okio/): `encodeToSink`, `decodeFromSource`, and `decodeSourceToSequence`. Check out the [PR](https://github.com/Kotlin/kotlinx.serialization/pull/2707) for more details.\r\n\r\n### Other bugfixes\r\n  * Prohibited use of elements other than JsonObject in JsonTransformingSerializer with polymorphic serialization (#2715)\r\n",
+        published_at: "2024-06-25T16:59:45Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.7.1" }])
+
+
+Repo { owner: "Kotlin", name: "kotlinx.coroutines", url: "https://github.com/Kotlin/kotlinx.coroutines" }:
+Ok(
+    RepoRelease {
+        name: "1.9.0-RC",
+        tag_name: "1.9.0-RC",
+        body: "* Kotlin was updated to 2.0 (#4137).\r\n* Introduced the `Flow<T>.chunked(size: Int): Flow<List<T>>` operator that groups emitted values into groups of the given size (#1290).\r\n* Closeable dispatchers are instances of `AutoCloseable` now (#4123).\r\n* `limitedParallelism` now optionally accepts the name of the dispatcher view for easier debugging (#4023).\r\n* Marked the classes and interfaces that are not supposed to be inherited from with the new `InternalForInheritanceCoroutinesApi` opt-in (#3770).\r\n* Marked the classes and interfaces inheriting from which is not stable with the new `ExperimentalForInheritanceCoroutinesApi` opt-in (#3770).\r\n* Wasm/WASI target support (#4064). Thanks, @igoriakovlev!\r\n* Promoted `CoroutineDispatcher.limitedParallelism` to stable (#3864).\r\n* Promoted `CancellableContinuation.resume` with an `onCancellation` lambda to stable, providing extra arguments to the lambda (#4088).\r\n* Ensured a more intuitive ordering of tasks in `runBlocking` (#4134).\r\n* Simplified the internal implementation of `Job` (#4053).\r\n* Fixed a bug that prevented non-Android `Dispatchers.Main` from initializing when the Firebase dependency is used (#3914).\r\n* Calling `hasNext` on a `Channel`'s iterator is idempotent (#4065). Thanks, @gitpaxultek!\r\n* `CoroutineScope()` created without an explicit dispatcher uses `Dispatchers.Default` on Native (#4074). Thanks, @whyoleg!\r\n* Small tweaks and documentation fixes.",
+        published_at: "2024-05-28T17:30:32Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "1.9.0-RC" }])
+
+
+Repo { owner: "Kotlin", name: "kotlinx.atomicfu", url: "https://github.com/Kotlin/kotlinx.atomicfu" }:
+Ok(
+    RepoRelease {
+        name: "0.25.0",
+        tag_name: "0.25.0",
+        body: "* Got rid of posix interop (#440).\r\n* Apply `atomicfu-gradle-plugin` by id [org.jetbrains.kotlinx.atomicfu](https://plugins.gradle.org/plugin/org.jetbrains.kotlinx.atomicfu) without buildscript configuration (#443)(#445).\r\n* Lots of cleanups and improvements in the build scripts. Thanks, @dkrasnoff!\r\n* Updated Kotlin to `2.0.0` (#442).\r\n* Updated kotlinx-metadata to `2.0.0` (#441).\r\n* Updated Gradle to `8.7`.",
+        published_at: "2024-06-28T14:18:04Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "0.25.0" }])
+
+
+Repo { owner: "ktorio", name: "ktor", url: "https://github.com/ktorio/ktor" }:
+Ok(
+    RepoRelease {
+        name: "3.0.0-beta-2",
+        tag_name: "3.0.0-beta-2",
+        body: "> Published 15 July 2024\r\n\r\n### Bugfixes\r\n* io.ktor.util.TextKt.chomp doesn't work on strings with more than one character ([KTOR-7209](https://youtrack.jetbrains.com/issue/KTOR-7209))\r\n* DefaultRequest plugin overwrites http protocol ([KTOR-5586](https://youtrack.jetbrains.com/issue/KTOR-5586))\r\n* Ktor build problem; cannot compile native targets ([KTOR-6666](https://youtrack.jetbrains.com/issue/KTOR-6666))\r\n* SSEException is thrown instead of JobCancellationException when coroutine's job is cancelled ([KTOR-6571](https://youtrack.jetbrains.com/issue/KTOR-6571))\r\n* SSE request drops request body ([KTOR-6659](https://youtrack.jetbrains.com/issue/KTOR-6659))\r\n* SSE: UnsupportedContentTypeException when sending POST request using OKHttp engine ([KTOR-6911](https://youtrack.jetbrains.com/issue/KTOR-6911))\r\n* SSE: NoTransformationFoundException when Logging plugin with LogLevel.ALL is used ([KTOR-6912](https://youtrack.jetbrains.com/issue/KTOR-6912))\r\n* Installing SSE breaks GET/POST functionality ([KTOR-6614](https://youtrack.jetbrains.com/issue/KTOR-6614))\r\n* Cookies with a long Max-Age incorrectly expire in AcceptAllCookiesStorage ([KTOR-6646](https://youtrack.jetbrains.com/issue/KTOR-6646))\r\n* Some dependency versions not tracked ([KTOR-7123](https://youtrack.jetbrains.com/issue/KTOR-7123))\r\n* CSRF: false positive originMatchesHost validation when default port is explicitly defined ([KTOR-6701](https://youtrack.jetbrains.com/issue/KTOR-6701))\r\n* Double Transfer-Encoding header while using respondOutputStream on Tomcat ([KTOR-6574](https://youtrack.jetbrains.com/issue/KTOR-6574))\r\n\r\n### Improvements\r\n* HttpCalValidatorConfig class name is misspelled ([KTOR-6625](https://youtrack.jetbrains.com/issue/KTOR-6625))\r\n* CallLogging: package is misspelled ([KTOR-4273](https://youtrack.jetbrains.com/issue/KTOR-4273))\r\n* Ambiguous coroutineContext warning in routing handler ([KTOR-5181](https://youtrack.jetbrains.com/issue/KTOR-5181))\r\n* Tracing: allow changing log level at runtime for routing ([KTOR-7193](https://youtrack.jetbrains.com/issue/KTOR-7193))\r\n* io.ktor.network.tls.TLSException has internal visibility ([KTOR-6767](https://youtrack.jetbrains.com/issue/KTOR-6767))\r\n* Auth: Make `refreshToken` of `BearerTokens` class nullable ([KTOR-6928](https://youtrack.jetbrains.com/issue/KTOR-6928))\r\n* Ktor test application library references internal module ([KTOR-6668](https://youtrack.jetbrains.com/issue/KTOR-6668))\r\n* CSRF: Confusing error message when Origin validation is enabled and only Referrer header is sent ([KTOR-6702](https://youtrack.jetbrains.com/issue/KTOR-6702))\r\n* CSRF: validations probably shouldn't be applied to GET/HEAD/OPTIONS requests ([KTOR-6698](https://youtrack.jetbrains.com/issue/KTOR-6698))\r\n* CSRF: Empty onFailure option is misleading ([KTOR-6687](https://youtrack.jetbrains.com/issue/KTOR-6687))\r\n* Misleading assertion message in the testEmbeddedServerCancellation test ([KTOR-6657](https://youtrack.jetbrains.com/issue/KTOR-6657))\r\n* Allow setting \"Secure\" flag for cookies on localhost ([KTOR-6593](https://youtrack.jetbrains.com/issue/KTOR-6593))\r\n* SSE: Unable to access response headers ([KTOR-6660](https://youtrack.jetbrains.com/issue/KTOR-6660))\r\n* SSE: Improve support for testing ([KTOR-3290](https://youtrack.jetbrains.com/issue/KTOR-3290))\r\n* OAuth handler does not propagate redirection errors to the caller ([KTOR-6605](https://youtrack.jetbrains.com/issue/KTOR-6605))\r\n* HttpTimeoutTest.testConnect are flaky ([KTOR-1583](https://youtrack.jetbrains.com/issue/KTOR-1583))\r\n\r\n### Features\r\n* Migrate to new kotlinx.io library ([KTOR-6030](https://youtrack.jetbrains.com/issue/KTOR-6030))\r\n* Change default session serializer to the one that uses kotlinx-serializaion ([KTOR-6175](https://youtrack.jetbrains.com/issue/KTOR-6175))\r\n* Replace custom withTimeout implementation using WeakTimeoutQueue with coroutines.withTimeout ([KTOR-3658](https://youtrack.jetbrains.com/issue/KTOR-3658))\r\n* Add Url capability: parsing/validating url strings ([KTOR-360](https://youtrack.jetbrains.com/issue/KTOR-360))\r\n* SSE: Support handling HTTP failures ([KTOR-6808](https://youtrack.jetbrains.com/issue/KTOR-6808))\r\n* Ktor client for Kotlin/Wasm ([KTOR-5587](https://youtrack.jetbrains.com/issue/KTOR-5587))\r\n* CSRF protection feature ([KTOR-2910](https://youtrack.jetbrains.com/issue/KTOR-2910))",
+        published_at: "2024-07-16T15:20:54Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "tmp-1" }, RepoTag { name: "ktor-0.4.0" }, RepoTag { name: "ktor-0.3.3" }, RepoTag { name: "ktor-0.3.2" }, RepoTag { name: "ktor-0.3.1" }])
+
+
+Repo { owner: "Kotlin", name: "kotlinx-datetime", url: "https://github.com/Kotlin/kotlinx-datetime" }:
+Ok(
+    RepoRelease {
+        name: "v0.6.0",
+        tag_name: "v0.6.0",
+        body: "- Introduce the widely requested API for locale-invariant parsing and formatting ([#343](https://github.com/Kotlin/kotlinx-datetime/pull/343))\r\n- Completely overhaul the KDoc-based documentation ([#347](https://github.com/Kotlin/kotlinx-datetime/issues/347))\r\n- Breaking change: forbid parsing `Instant` values without the second-of-minute component on the JVM and JS, fixing inconsistency with Native ([#369](https://github.com/Kotlin/kotlinx-datetime/issues/369))\r\n- Breaking change: use the fully qualified name of classes in the JSON serializers ([#308](https://github.com/Kotlin/kotlinx-datetime/pull/308))\r\n- Fix Proguard emitting warning about missing `kotlinx-serialization` classes when serialization is not used ([#336](https://github.com/Kotlin/kotlinx-datetime/pull/336))\r\n- Reimplement the timezone database handling for Native targets from scratch ([#286](https://github.com/Kotlin/kotlinx-datetime/pull/286), [#327](https://github.com/Kotlin/kotlinx-datetime/pull/327))\r\n- Support Android NDK targets ([#344](https://github.com/Kotlin/kotlinx-datetime/pull/344))\r\n- Small tweaks and fixes.\r\n\r\n### Changelog relative to version 0.6.0-RC.2\r\n\r\n- Completely overhaul the KDoc-based documentation ([#347](https://github.com/Kotlin/kotlinx-datetime/issues/347))\r\n- Breaking change: forbid parsing `Instant` values without the second-of-minute component on the JVM and JS, fixing inconsistency with Native ([#369](https://github.com/Kotlin/kotlinx-datetime/issues/369))\r\n- Improve error descriptiveness in some cases ([#360](https://github.com/Kotlin/kotlinx-datetime/pull/360), [#371](https://github.com/Kotlin/kotlinx-datetime/pull/371))\r\n- Remove `stat` usages to comply with Apple's new publishing requirements ([#385](https://github.com/Kotlin/kotlinx-datetime/pull/385))\r\n- Fix parsing of formats where `optional` is directly between numbers ([#362](https://github.com/Kotlin/kotlinx-datetime/pull/362))\r\n- Forbid empty and duplicate month, day-of-week, and AM/PM marker names in datetime formats ([#362](https://github.com/Kotlin/kotlinx-datetime/pull/362))\r\n\r\n## New Contributors\r\n* @whyoleg made their first contribution in https://github.com/Kotlin/kotlinx-datetime/pull/323\r\n* @qwwdfsad made their first contribution in https://github.com/Kotlin/kotlinx-datetime/pull/308\r\n* @shanshin made their first contribution in https://github.com/Kotlin/kotlinx-datetime/pull/380\r\n\r\n**Full Changelog**: https://github.com/Kotlin/kotlinx-datetime/compare/v0.5.0...v0.6.0",
+        published_at: "2024-05-14T16:07:29Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v0.6.0" }])
+
+
+Repo { owner: "touchlab", name: "SQLiter", url: "https://github.com/touchlab/SQLiter" }:
+Ok(
+    RepoRelease {
+        name: "1.3.1",
+        tag_name: "1.3.1",
+        body: "",
+        published_at: "2023-11-06T19:53:03Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.1.0" }, RepoTag { name: "v1.0.8" }, RepoTag { name: "v1.0.2" }, RepoTag { name: "1.3.1" }])
+
+
+Repo { owner: "touchlab", name: "SKIE", url: "https://github.com/touchlab/SKIE" }:
+Ok(
+    RepoRelease {
+        name: "0.8.2",
+        tag_name: "0.8.2",
+        body: "[Change log](https://skie.touchlab.co/changelog/0.8.2)",
+        published_at: "2024-06-06T10:11:08Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "site/0.4.0-flows" }, RepoTag { name: "review-end" }, RepoTag { name: "0.8.3" }, RepoTag { name: "0.8.2" }])
+
+
+Repo { owner: "touchlab", name: "KMMBridge", url: "https://github.com/touchlab/KMMBridge" }:
+Ok(
+    RepoRelease {
+        name: "0.5.5",
+        tag_name: "0.5.5",
+        body: "",
+        published_at: "2024-04-21T16:50:10Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "kmm-artifacts-1.0" }, RepoTag { name: "0.5.5" }])
+
+
+Repo { owner: "ttypic", name: "swift-klib-plugin", url: "https://github.com/ttypic/swift-klib-plugin" }:
+Ok(
+    RepoRelease {
+        name: "v0.5.1",
+        tag_name: "v0.5.1",
+        body: "[Full Changelog](https://github.com/ttypic/swift-klib-plugin/compare/v0.5.0...v0.5.1)\r\n\r\n**Merged pull requests:**\r\n\r\n- fix: more robust readXcodeMajorVersion [\\#20](https://github.com/ttypic/swift-klib-plugin/pull/20)",
+        published_at: "2023-11-24T23:00:38Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v0.5.1" }])
+
+
+Repo { owner: "russhwolf", name: "multiplatform-settings", url: "https://github.com/russhwolf/multiplatform-settings" }:
+Ok(
+    RepoRelease {
+        name: "v1.1.1",
+        tag_name: "v1.1.1",
+        body: "- Update to Kotlin 1.9.20\r\n- Fix a crash that could happen when using the no-argument `KeychainSettings` constructor (#175)",
+        published_at: "2023-11-21T05:12:46Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.1.1" }])
+
+
+Repo { owner: "InsertKoinIO", name: "koin", url: "https://github.com/InsertKoinIO/koin" }:
+Ok(
+    RepoRelease {
+        name: "3.5.6",
+        tag_name: "3.5.6",
+        body: "## What's Changed\r\n* Fix Gradle dependencies to be in 3.5.3 style by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1851\r\n\r\n\r\n**Full Changelog**: https://github.com/InsertKoinIO/koin/compare/3.5.5...3.5.6",
+        published_at: "2024-04-12T06:57:36Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "ktor-3.5.3" }, RepoTag { name: "ktor-3.5.2" }, RepoTag { name: "ktor-3.5.2-RC1" }, RepoTag { name: "ktor-3.5.1" }, RepoTag { name: "ktor-3.5.0" }])
+
+
+Repo { owner: "gmazzo", name: "gradle-buildconfig-plugin", url: "https://github.com/gmazzo/gradle-buildconfig-plugin" }:
+Ok(
+    RepoRelease {
+        name: "v5.4.0",
+        tag_name: "v5.4.0",
+        body: "<!-- Release notes generated using configuration in .github/release.yml at main -->\r\n\r\n## What's Changed\r\n### Features\r\n* Migrated to `gradle/actions/setup-gradle@v3` by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/132\r\n* Added `actionlint` to validate workflows by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/133\r\n* Fixed coverage by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/136\r\n* Added `GRADLE_ENCRYPTION_KEY` to the build by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/138\r\n* Dropping Kotlin 1.7 support and adding min Gradle version check by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/145\r\n* Replaced JUnit report action by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/151\r\n* Fixed Java identifier conversion for default group when it has numbers by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/162\r\n### Dependencies\r\n* Bump com.github.gmazzo.buildconfig from 5.3.3 to 5.3.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/126\r\n* Bump io.github.gmazzo.publications.report from 1.2.4 to 1.2.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/127\r\n* Bump com.squareup:kotlinpoet from 1.15.3 to 1.16.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/128\r\n* Bump com.android.application from 8.2.1 to 8.2.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/129\r\n* Update Gradle Wrapper from 8.5 to 8.6 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/134\r\n* Bump codecov/codecov-action from 3 to 4 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/135\r\n* Bump com.android.application from 8.2.2 to 8.3.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/139\r\n* Bump io.mockk:mockk from 1.13.9 to 1.13.10 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/140\r\n* Bump io.github.gmazzo.publications.report from 1.2.5 to 1.2.7 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/142\r\n* Bump kotlin from 1.9.22 to 1.9.23 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/141\r\n* Bump com.android.application from 8.3.0 to 8.3.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/143\r\n* Update Gradle Wrapper from 8.6 to 8.7 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/144\r\n* Bump io.github.gmazzo.publications.report from 1.2.7 to 1.2.8 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/147\r\n* Bump com.android.application from 8.3.1 to 8.3.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/148\r\n* Bump com.android.application from 8.3.2 to 8.4.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/150\r\n* Bump kotlin from 1.9.23 to 1.9.24 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/152\r\n* Bump io.mockk:mockk from 1.13.10 to 1.13.11 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/154\r\n* Bump com.android.application from 8.4.0 to 8.4.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/153\r\n* Bump com.squareup:kotlinpoet from 1.16.0 to 1.17.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/156\r\n* Bump kotlin from 1.9.24 to 2.0.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/155\r\n* Update Gradle Wrapper from 8.7 to 8.8 by @github-actions in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/158\r\n* Bump com.android.application from 8.4.1 to 8.4.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/159\r\n* Bump com.android.application from 8.4.2 to 8.5.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/160\r\n* Bump com.squareup:kotlinpoet from 1.17.0 to 1.18.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/161\r\n\r\n\r\n**Full Changelog**: https://github.com/gmazzo/gradle-buildconfig-plugin/compare/v5.3.5...v5.3.6\r\n\r\n<!-- Release notes generated using configuration in .github/release.yml at main -->\r\n\r\n## What's Changed\r\n### Features\r\n* Migrated to `gradle/actions/setup-gradle@v3` by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/132\r\n* Added `actionlint` to validate workflows by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/133\r\n* Fixed coverage by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/136\r\n* Added `GRADLE_ENCRYPTION_KEY` to the build by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/138\r\n* Dropping Kotlin 1.7 support and adding min Gradle version check by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/145\r\n* Replaced JUnit report action by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/151\r\n* Fixed Java identifier conversion for default group when it has numbers by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/162\r\n### Dependencies\r\n* Bump com.github.gmazzo.buildconfig from 5.3.3 to 5.3.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/126\r\n* Bump io.github.gmazzo.publications.report from 1.2.4 to 1.2.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/127\r\n* Bump com.squareup:kotlinpoet from 1.15.3 to 1.16.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/128\r\n* Bump com.android.application from 8.2.1 to 8.2.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/129\r\n* Update Gradle Wrapper from 8.5 to 8.6 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/134\r\n* Bump codecov/codecov-action from 3 to 4 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/135\r\n* Bump com.android.application from 8.2.2 to 8.3.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/139\r\n* Bump io.mockk:mockk from 1.13.9 to 1.13.10 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/140\r\n* Bump io.github.gmazzo.publications.report from 1.2.5 to 1.2.7 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/142\r\n* Bump kotlin from 1.9.22 to 1.9.23 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/141\r\n* Bump com.android.application from 8.3.0 to 8.3.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/143\r\n* Update Gradle Wrapper from 8.6 to 8.7 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/144\r\n* Bump io.github.gmazzo.publications.report from 1.2.7 to 1.2.8 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/147\r\n* Bump com.android.application from 8.3.1 to 8.3.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/148\r\n* Bump com.android.application from 8.3.2 to 8.4.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/150\r\n* Bump kotlin from 1.9.23 to 1.9.24 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/152\r\n* Bump io.mockk:mockk from 1.13.10 to 1.13.11 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/154\r\n* Bump com.android.application from 8.4.0 to 8.4.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/153\r\n* Bump com.squareup:kotlinpoet from 1.16.0 to 1.17.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/156\r\n* Bump kotlin from 1.9.24 to 2.0.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/155\r\n* Update Gradle Wrapper from 8.7 to 8.8 by @github-actions in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/158\r\n* Bump com.android.application from 8.4.1 to 8.4.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/159\r\n* Bump com.android.application from 8.4.2 to 8.5.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/160\r\n* Bump com.squareup:kotlinpoet from 1.17.0 to 1.18.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/161\r\n\r\n\r\n**Full Changelog**: https://github.com/gmazzo/gradle-buildconfig-plugin/compare/v5.3.5...v5.4.0",
+        published_at: "2024-07-09T09:30:38Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v5.4.0" }])
+
+
+Repo { owner: "Kotlin", name: "dokka", url: "https://github.com/Kotlin/dokka" }:
+Ok(
+    RepoRelease {
+        name: "1.9.20",
+        tag_name: "v1.9.20",
+        body: "## General bugfixes\r\n\r\n* Fixed sealed interfaces not having the `sealed` keyword in signatures (https://github.com/Kotlin/dokka/issues/2994)\r\n* Fixed incorrect links in multi-module projects with non-unique package names (https://github.com/Kotlin/dokka/issues/2272). Huge thanks to @EddieRingle!\r\n* Fixed member extensions not being shown on index pages in certain scenarios (https://github.com/Kotlin/dokka/issues/3187)\r\n* Fixed Java's inner classes not having the `inner` keyword in Kotlin signatures (https://github.com/Kotlin/dokka/issues/2793)\r\n* Fixed Java's `@param` tag not working with type parameters (https://github.com/Kotlin/dokka/issues/3199)\r\n* Fixed Dokka failing in KMP projects when the JVM source set is suppressed (https://github.com/Kotlin/dokka/issues/3209)\r\n\r\n## HTML format\r\n\r\n* Provide an ability to add a custom homepage link to the header, more details in https://github.com/Kotlin/dokka/issues/2948#issuecomment-1976723089\r\n* Fixed tab selection resetting after navigating to a different page (https://github.com/Kotlin/dokka/issues/2899)\r\n* Fixed inline code not always being aligned with the surrounding text (https://github.com/Kotlin/dokka/issues/3228)\r\n* Fixed the \"No options found\" text in search being barely visible (https://github.com/Kotlin/dokka/issues/3281)\r\n* Fixed empty HTML tags being rendered for no reason (https://github.com/Kotlin/dokka/pull/3343, https://github.com/Kotlin/dokka/issues/3095)\r\n\r\n## Runners\r\n\r\n### Gradle Plugin\r\n\r\n* Mark tasks as not compatible with Gradle configuration cache, second try (https://github.com/Kotlin/dokka/pull/3438). Thanks to @3flex for noticing and fixing the problem!\r\n\r\n### Maven Plugin\r\n\r\n* Fixed `dokka:help` being absent (https://github.com/Kotlin/dokka/issues/3035). Thanks to @aSemy!\r\n* Fixed the source links configuration not working (https://github.com/Kotlin/dokka/pull/3046). Thanks to @freya022 for fixing this one!\r\n\r\n### CLI runner\r\n\r\n* Allow using relative paths in the `sourceRoots` configuration option (https://github.com/Kotlin/dokka/issues/2571)\r\n\r\n## Plugin API\r\n\r\n* Provide an extension point to customize the rendering of code blocks in HTML format (https://github.com/Kotlin/dokka/issues/3244)\r\n\r\n## Other:\r\n\r\n* Make sure `wasm-js` and `wasm-wasi` targets introduced in Kotlin 1.9.20 are supported (https://github.com/Kotlin/dokka/issues/3310)\r\n* Avoid concurrent invocations of Kotlin compiler's API due to the compiler API itself not always being thread safe (https://github.com/Kotlin/dokka/issues/3151). No noticeable performance loss is expected.\r\n* Bump dependencies to the latest versions (https://github.com/Kotlin/dokka/pull/3231, https://github.com/Kotlin/dokka/pull/3206, https://github.com/Kotlin/dokka/pull/3204)\r\n* Fix a documentation link (https://github.com/Kotlin/dokka/pull/3213). Thanks to @SubhrajyotiSen for noticing and fixing it!\r\n* Various build and project structure improvements (https://github.com/Kotlin/dokka/pull/3174, https://github.com/Kotlin/dokka/issues/3132). Enormous thanks to @aSemy for the help!\r\n\r\nSee [Dokka 1.9.20](https://github.com/Kotlin/dokka/milestone/30?closed=1) milestone for the list of all changes.",
+        published_at: "2024-03-04T17:09:50Z",
+        target_commitish: "1.9.20",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.9.20" }])
+
+
+Repo { owner: "square", name: "okio", url: "https://github.com/square/okio" }:
+Err(
+    "response {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/releases/releases#get-the-latest-release\",\"status\":\"404\"}, for url (https://api.github.com/repos/square/okio/releases/latest)",
+)
+Ok([RepoTag { name: "parent-3.9.0" }, RepoTag { name: "parent-3.8.0" }, RepoTag { name: "parent-3.7.0" }, RepoTag { name: "parent-3.6.0" }, RepoTag { name: "parent-3.5.0" }])
+
+
+Repo { owner: "rickclephas", name: "KMP-NativeCoroutines", url: "https://github.com/rickclephas/KMP-NativeCoroutines" }:
+Ok(
+    RepoRelease {
+        name: "v1.0.0-ALPHA-32",
+        tag_name: "v1.0.0-ALPHA-32",
+        body: "### Kotlin\r\n\r\n* Updated KSP to 1.0.23",
+        published_at: "2024-07-14T11:44:20Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.0.0-ALPHA-32" }])
+
+
+Repo { owner: "rickclephas", name: "KMM-ViewModel", url: "https://github.com/rickclephas/KMM-ViewModel" }:
+Ok(
+    RepoRelease {
+        name: "v1.0.0-BETA-3",
+        tag_name: "v1.0.0-BETA-3",
+        body: "* Updated Kotlin to 2.0.0",
+        published_at: "2024-05-22T20:04:07Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "v1.0.0-BETA-3" }])
+
+
+Repo { owner: "google", name: "ksp", url: "https://github.com/google/ksp/releases" }:
+Ok(
+    RepoRelease {
+        name: "2.0.0-1.0.23",
+        tag_name: "2.0.0-1.0.23",
+        body: "## Issues fixed ## \r\n* [KSP2] Nullable type arg type becomes non-null after replace() call #1856\r\n* Annotations on enum entires on K2 are missing #1962\r\n* Got IllegalStateException when calling replace() on error types #1960\r\n* [KSP2] Resolver.getJvmCheckedException doesn't work on property accessors #1900\r\n* [KSP2] Property getter JVM names in data classes become componentN instead of getXXX #1958\r\n* [KSP2] Resolver.mapToJvmSignature doesn't unwrap inline classes #1859\r\n* [KSP2] KSFunctionDeclaration.asMemberOf does not return correct types #1919\r\n* implement getOwnerJvmClassName #1979\r\n* [KSP2] KSPropertyDeclaration.hasBackingField returns inconsistent results #1939\r\n* [KSP2] Annotations on extension receivers are missing #1899",
+        published_at: "2024-07-11T19:28:54Z",
+        target_commitish: "main",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "test-tag" }, RepoTag { name: "jvg-test" }, RepoTag { name: "2.0.20-Beta2-1.0.23" }, RepoTag { name: "2.0.20-Beta1-1.0.22" }, RepoTag { name: "2.0.10-RC-1.0.23" }, RepoTag { name: "2.0.0-RC3-1.0.20" }, RepoTag { name: "2.0.0-RC2-1.0.20" }, RepoTag { name: "2.0.0-RC1-1.0.20" }, RepoTag { name: "2.0.0-Beta5-1.0.20" }, RepoTag { name: "2.0.0-Beta5-1.0.19" }, RepoTag { name: "2.0.0-Beta4-1.0.19" }, RepoTag { name: "2.0.0-Beta4-1.0.17" }, RepoTag { name: "2.0.0-Beta3-1.0.17" }, RepoTag { name: "2.0.0-Beta2-1.0.16" }, RepoTag { name: "2.0.0-Beta1-1.0.15" }, RepoTag { name: "2.0.0-Beta1-1.0.14" }, RepoTag { name: "2.0.0-1.0.23" }])
+
+
+Repo { owner: "icerockdev", name: "moko-kswift", url: "https://github.com/icerockdev/moko-kswift.git" }:
+Ok(
+    RepoRelease {
+        name: "0.7.0",
+        tag_name: "release/0.7.0",
+        body: "# Changes\r\n- #61 new feature - generation of `copy` method for `data class` in Swift \r\n- #60 #88 removed force unwrap in sealed generator (fix warnings in Swift)\r\n\r\n# Thanks\r\n@ema987 , @ShyngysSaktagan",
+        published_at: "2024-01-22T04:55:44Z",
+        target_commitish: "refs/heads/master",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "release/0.7.0" }])
+
+
+Repo { owner: "google", name: "desugar_jdk_libs", url: "https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md" }:
+Err(
+    "response {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/releases/releases#get-the-latest-release\",\"status\":\"404\"}, for url (https://api.github.com/repos/google/desugar_jdk_libs/releases/latest)",
+)
+Ok([RepoTag { name: "1.1.5" }, RepoTag { name: "1.1.4" }, RepoTag { name: "1.1.3" }, RepoTag { name: "1.1.1" }, RepoTag { name: "1.1.0" }])
+
+
