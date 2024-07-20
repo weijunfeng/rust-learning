@@ -52,3 +52,6 @@
 [submodule "rust/rust-by-example"]
 	path = rust/rust-by-example
 	url = https://github.com/rust-lang/rust-by-example.git
+[submodule "rust/rust-cookbook-cn"]
+	path = rust/rust-cookbook-cn
+	url = https://github.com/rust-lang-cn/rust-cookbook-cn.git
