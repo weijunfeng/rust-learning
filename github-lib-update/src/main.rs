@@ -1,7 +1,6 @@
 use std::fmt::Debug;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
-use std::ops::Index;
 
 use http::header;
 use reqwest::{Client, Error, Url};
@@ -45,39 +44,15 @@ struct Repo {
     url: String,
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    let mut file = match File::create("repo_versions.txt") {
-        Err(why) => panic!("couldn't create file: {}", why),
-        Ok(file) => file,
-    };
-
-    let client = client_builder().build()?;
-    let repos = parse_repo();
-    for ref repo in repos {
-        let latest_release = get_latest_release(&client, repo).await;
-        let release_tag = if let Ok(ref release) = latest_release {
-            &(release.tag_name)
-        } else {
-            ""
-        };
-        let all_tag = get_all_tag(&client, repo).await;
-        let tag = filter_tag(all_tag, release_tag);
-        let result = format!("{repo:?}:\n{:#?}\n{:?}\n\n\n", latest_release, tag);
-        file.write_all(result.as_bytes()).expect("couldn't write to file");
-    }
-    Ok(())
-}
-
-fn filter_tag(all_tag: Result<Vec<RepoTag>, String>, target_tag_name: &str) -> Result<Vec<RepoTag>, String> {
+/// 从`all_tag`过滤出`target_tag_name`所在位置的数据，如果`target_tag_name`不在`all_tag`中则返回最多 5 个数据长度
+fn filter_tag<'a>(
+    all_tag: Result<&'a Vec<RepoTag>, &'a String>,
+    target_tag_name: &str,
+) -> Result<&'a [RepoTag], &'a String> {
     let all_tag = all_tag?;
     let index = all_tag.iter().position(|x| x.name == target_tag_name);
-    let min_index = if let Some(index) = index {
-        index + 1
-    } else {
-        5
-    };
-    return Ok(all_tag.into_iter().take(min_index).collect());
+    let max_index = if let Some(index) = index { index } else { 4 };
+    return Ok(&all_tag[0..=max_index]);
 }
 
 async fn get_latest_release(client: &Client, repo: &Repo) -> Result<RepoRelease, String> {
@@ -110,9 +85,7 @@ async fn request<T: DeserializeOwned>(client: &Client, request_url: &String) -> 
                     .and_then(|text| Err(format!("response {text}, for url ({request_url})", )))
             }
         }
-        Err(e) => {
-            Err(format!("{}", e))
-        }
+        Err(e) => Err(format!("{}", e)),
     };
 }
 
@@ -124,7 +97,7 @@ fn client_builder() -> reqwest::ClientBuilder {
     );
     headers.insert(
         "Authorization",
-        header::HeaderValue::from_static("token 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"),
+        header::HeaderValue::from_static("token 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"),
     );
     headers.insert(
         "Accept",
@@ -173,9 +146,35 @@ fn parse_to_repo(line: Option<&String>) -> Option<Repo> {
 fn parse_repo() -> Vec<Repo> {
     let file = File::open("Versions.kt");
     if let Ok(file) = file {
-        return BufReader::new(file).lines()
+        return BufReader::new(file)
+            .lines()
             .filter_map(|line| parse_to_repo(line.ok().as_ref()))
             .collect();
     }
     return vec![];
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    let mut file = match File::create("repo_versions.txt") {
+        Err(why) => panic!("couldn't create file: {}", why),
+        Ok(file) => file,
+    };
+
+    let client = client_builder().build()?;
+    let repos = parse_repo();
+    for ref repo in repos {
+        let latest_release = get_latest_release(&client, repo).await;
+        let release_tag = if let Ok(ref release) = latest_release {
+            &(release.tag_name)
+        } else {
+            ""
+        };
+        let all_tag = get_all_tag(&client, repo).await;
+        let tag = filter_tag(all_tag.as_ref(), release_tag);
+        let result = format!("{repo:?}:\n{:#?}\n{:?}\n\n\n", latest_release, tag);
+        file.write_all(result.as_bytes())
+            .expect("couldn't write to file");
+    }
+    Ok(())
 }
