@@ -97,7 +97,7 @@ fn client_builder() -> reqwest::ClientBuilder {
     );
     headers.insert(
         "Authorization",
-        header::HeaderValue::from_static("token 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"),
+        header::HeaderValue::from_static("token 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"),
     );
     headers.insert(
         "Accept",
