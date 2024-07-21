@@ -58,3 +58,6 @@
 [submodule "rust/rust-threadpool"]
 	path = rust/rust-threadpool
 	url = https://github.com/rust-threadpool/rust-threadpool.git
+[submodule "rust/tokio"]
+	path = rust/tokio
+	url = https://github.com/tokio-rs/tokio.git
