@@ -5,8 +5,10 @@ use std::io::{BufRead, BufReader, Write};
 
 use http::header;
 use reqwest::{Client, Error, Url};
-use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
+use serde::de::DeserializeOwned;
+
+mod constant;
 
 /// 仓库tag信息
 #[derive(Debug, Serialize, Deserialize)]
@@ -94,11 +96,12 @@ fn client_builder() -> reqwest::ClientBuilder {
     let mut headers = header::HeaderMap::new();
     headers.insert(
         "User-Agent",
-        header::HeaderValue::from_static("89113789@qq.com"),
+        header::HeaderValue::from_static(constant::USER_AGENT),
     );
     headers.insert(
         "Authorization",
-        header::HeaderValue::from_static("token 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"),
+        // 必须 leak()? 什么时候回收呢?
+        header::HeaderValue::from_static(format!("token {}", constant::TOKEN).leak()),
     );
     headers.insert(
         "Accept",
@@ -145,7 +148,7 @@ fn parse_to_repo(line: Option<&String>) -> Option<Repo> {
 }
 
 fn parse_repo() -> Vec<Repo> {
-    let file = File::open("Versions.kt");
+    let file = File::open(constant::VERSION_FILE_NAME);
     if let Ok(file) = file {
         return BufReader::new(file)
             .lines()
@@ -157,7 +160,7 @@ fn parse_repo() -> Vec<Repo> {
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let mut file = match File::create("repo_versions.txt") {
+    let mut file = match File::create(constant::REPO_VERSION_FILE_NAME) {
         Err(why) => panic!("couldn't create file: {}", why),
         Ok(file) => file,
     };
@@ -165,7 +168,7 @@ async fn main() -> Result<(), Error> {
     let client = client_builder().build()?;
     let repos = parse_repo();
     let mut repo_identify_set = HashSet::new();
-    for ref repo in repos {
+    for (index, repo) in repos.iter().enumerate() {
         let repo_identify = format!("{}:{}", repo.owner, repo.name);
         if !repo_identify_set.insert(repo_identify) {
             continue;
@@ -178,9 +181,13 @@ async fn main() -> Result<(), Error> {
         };
         let all_tag = get_all_tag(&client, repo).await;
         let tag = filter_tag(all_tag.as_ref(), release_tag);
-        let result = format!("{repo:?}:\n{:#?}\n{:?}\n\n\n", latest_release, tag);
+        let result = format!("{repo:?}:\n{:#?}\n{:?}", latest_release, tag);
         file.write_all(result.as_bytes())
             .expect("couldn't write to file");
+        if index == repos.len() - 1 {
+            break;
+        }
+        file.write_all("\n\n\n".as_bytes()).expect("write file fail");
     }
     Ok(())
 }

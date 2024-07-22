@@ -20,21 +20,6 @@ Ok(
 Ok([RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
 
 
-Repo { owner: "JetBrains", name: "compose-multiplatform", url: "https://github.com/JetBrains/compose-multiplatform/blob/c44601a1f4ea83f9d644aa3fdc28f20331d50e8d/gradle-plugins/compose/src/main/kotlin/org/jetbrains/compose/ComposeCompilerCompatibility.kt" }:
-Ok(
-    RepoRelease {
-        name: "1.6.11",
-        tag_name: "v1.6.11",
-        body: "_Changes since 1.6.10_\r\n\r\n## Fixes\r\n\r\n### Multiple Platforms\r\n\r\n- [Fix endless re-layout when layout is invalidated by measure, which includes measuring `TextField(singleLine=true)` with `IntrinsicSize`](https://github.com/JetBrains/compose-multiplatform-core/pull/1355)\r\n- [Fix container size for `Dialog` centering inside `ImageComposeScene`](https://github.com/JetBrains/compose-multiplatform-core/pull/1375)\r\n\r\n### iOS\r\n\r\n- [Fix crash on iOS 12 caused by usage unavailable `UIMenuController` API](https://github.com/JetBrains/compose-multiplatform-core/pull/1361)\r\n\r\n### Desktop\r\n\r\n- [Fix `DropdownMenu`/`Popup` positioning when a window is moved to a screen with a different density](https://github.com/JetBrains/compose-multiplatform-core/pull/1333)\r\n- [Fix possible scrolling without animation on some mouse models](https://github.com/JetBrains/compose-multiplatform-core/pull/1326)\r\n\r\n### Web\r\n\r\n- [Fixed crash when `DatePicker` text field receives illegal input](https://github.com/JetBrains/compose-multiplatform-core/pull/1368)\r\n\r\n### Resources\r\n\r\n- [Fix a cached font if the resource acessor was changed](https://github.com/JetBrains/compose-multiplatform/pull/4864)\r\n\r\n### Gradle Plugin\r\n\r\n- [Fix Compose Compiler configuration for Kotlin < 2.0 when kotlin-android or kotlin-js gradle plugins are applied](https://github.com/JetBrains/compose-multiplatform/pull/4879)\r\n\r\n## Dependencies\r\n\r\n- Gradle Plugin `org.jetbrains.compose`, version `1.6.11`. Based on Jetpack Compose libraries:\r\n  - [Compiler 1.5.14](https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.5.14)\r\n  - [Runtime 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.6.7)\r\n  - [UI 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.6.7)\r\n  - [Foundation 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.6.7)\r\n  - [Material 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-material#1.6.7)\r\n  - [Material3 1.2.1](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.2.1)\r\n\r\n- Lifecycle libraries `org.jetbrains.androidx.lifecycle:lifecycle-*:2.8.0`. Based on [Jetpack Lifecycle 2.8.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.0)\r\n- Navigation libraries `org.jetbrains.androidx.navigation:navigation-*:2.7.0-alpha07`. Based on [Jetpack Navigation 2.7.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.7.7)",
-        published_at: "2024-06-03T16:27:08Z",
-        target_commitish: "70b8c44d32995233348773e78715f08819f43d5d",
-        draft: false,
-        prerelease: false,
-    },
-)
-Ok([RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
-
-
 Repo { owner: "Kotlin", name: "kotlinx.serialization", url: "https://github.com/Kotlin/kotlinx.serialization" }:
 Ok(
     RepoRelease {
@@ -302,5 +287,3 @@ Err(
     "response {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/releases/releases#get-the-latest-release\",\"status\":\"404\"}, for url (https://api.github.com/repos/google/desugar_jdk_libs/releases/latest)",
 )
 Ok([RepoTag { name: "1.1.5" }, RepoTag { name: "1.1.4" }, RepoTag { name: "1.1.3" }, RepoTag { name: "1.1.1" }, RepoTag { name: "1.1.0" }])
-
-
