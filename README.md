@@ -1,2 +1,2 @@
 # rust-learning
-day day learn, day day up
+day day study, day day up

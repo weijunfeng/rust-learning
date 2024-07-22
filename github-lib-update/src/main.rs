@@ -1,11 +1,12 @@
+use std::collections::HashSet;
 use std::fmt::Debug;
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 
 use http::header;
 use reqwest::{Client, Error, Url};
-use serde::{Deserialize, Serialize};
 use serde::de::DeserializeOwned;
+use serde::{Deserialize, Serialize};
 
 /// 仓库tag信息
 #[derive(Debug, Serialize, Deserialize)]
@@ -82,7 +83,7 @@ async fn request<T: DeserializeOwned>(client: &Client, request_url: &String) -> 
             } else {
                 let text = response.text().await;
                 text.map_err(|e| format!("{}", e))
-                    .and_then(|text| Err(format!("response {text}, for url ({request_url})", )))
+                    .and_then(|text| Err(format!("response {text}, for url ({request_url})")))
             }
         }
         Err(e) => Err(format!("{}", e)),
@@ -163,7 +164,12 @@ async fn main() -> Result<(), Error> {
 
     let client = client_builder().build()?;
     let repos = parse_repo();
+    let mut repo_identify_set = HashSet::new();
     for ref repo in repos {
+        let repo_identify = format!("{}:{}", repo.owner, repo.name);
+        if !repo_identify_set.insert(repo_identify) {
+            continue;
+        }
         let latest_release = get_latest_release(&client, repo).await;
         let release_tag = if let Ok(ref release) = latest_release {
             &(release.tag_name)
