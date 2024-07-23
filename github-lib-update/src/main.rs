@@ -5,8 +5,8 @@ use std::io::{BufRead, BufReader, Write};
 
 use http::header;
 use reqwest::{Client, Error, Url};
-use serde::{Deserialize, Serialize};
 use serde::de::DeserializeOwned;
+use serde::{Deserialize, Serialize};
 
 mod constant;
 
@@ -100,8 +100,7 @@ fn client_builder() -> reqwest::ClientBuilder {
     );
     headers.insert(
         "Authorization",
-        // 必须 leak()? 什么时候回收呢?
-        header::HeaderValue::from_static(format!("token {}", constant::TOKEN).leak()),
+        header::HeaderValue::from_str(&format!("token {}", constant::TOKEN)).expect("token fail"),
     );
     headers.insert(
         "Accept",
@@ -187,7 +186,8 @@ async fn main() -> Result<(), Error> {
         if index == repos.len() - 1 {
             break;
         }
-        file.write_all("\n\n\n".as_bytes()).expect("write file fail");
+        file.write_all("\n\n\n".as_bytes())
+            .expect("write file fail");
     }
     Ok(())
 }
