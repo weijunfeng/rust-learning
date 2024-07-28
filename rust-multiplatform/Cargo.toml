@@ -23,5 +23,10 @@ log = "0.4.21"
 [lib]
 crate-type = ["staticlib", "cdylib"]
 
+[profile.release]
+lto = true
+strip = true
+#panic = "abort"
+
 #[patch.crates-io]
 #socket2 = { version = "0.4.10", git = "https://github.com/stuartZhang/socket2.git", branch = "v0.4.x" }
