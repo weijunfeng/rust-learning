@@ -13,6 +13,8 @@ mod unique_permutations;
 mod word_segmentation;
 mod memory_page_hotcold_marking;
 mod array_sort;
+mod pizza_fair_division;
+mod binary_tree_traversal;
 
 fn main() {
 
