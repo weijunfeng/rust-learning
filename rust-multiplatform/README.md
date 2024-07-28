@@ -28,4 +28,6 @@
 
    ``cargo install ohrs``
 
+   - 如安装报错，重新安装 openssl再尝试，mac下命令 `brew install openssl` 
+
 ## nodejs
