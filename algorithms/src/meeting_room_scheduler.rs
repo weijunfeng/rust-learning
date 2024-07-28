@@ -27,12 +27,12 @@ fn merge_intervals(intervals: &[(i32, i32)]) -> Vec<(i32, i32)> {
     sort_intervals.sort_by_key(|f| f.0);
     let mut curr_data = sort_intervals[0];
     let mut merge_result = Vec::new();
-    for interval in sort_intervals.iter().skip(1) {
-        if curr_data.1 >= interval.0 {
-            curr_data.1 = max(curr_data.1, interval.1)
+    for &(start, end) in sort_intervals.iter().skip(1) {
+        if curr_data.1 >= start {
+            curr_data.1 = max(curr_data.1, end)
         } else {
             merge_result.push(curr_data);
-            curr_data = *interval;
+            curr_data = (start, end);
         }
     }
     merge_result.push(curr_data);

@@ -11,6 +11,7 @@ mod min_parking_spaces;
 mod free_count;
 mod unique_permutations;
 mod word_segmentation;
+mod memory_page_hotcold_marking;
 
 fn main() {
 
