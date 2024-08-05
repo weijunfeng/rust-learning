@@ -1,2 +1,2 @@
 [workspace]
-members = ["拼多多"]
+members = [ "algorithms","拼多多"]
