@@ -51,7 +51,7 @@ impl Solution {
             if Solution::is_valid_path(path) {
                 paths.push(path.to_string());
                 Solution::back_track(s, start + i, paths, result);
-                paths.remove(paths.len() - 1);
+                paths.pop();
             }
         }
     }
@@ -61,6 +61,6 @@ impl Solution {
             return false;
         }
         let num = path.parse::<i32>().unwrap();
-        return num >= 0 && num <= 255;
+        num >= 0 && num <= 255
     }
 }

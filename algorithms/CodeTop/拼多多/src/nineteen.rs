@@ -29,6 +29,8 @@ https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/
  
 
 进阶：你能尝试使用一趟扫描实现吗？
+// 思路：删除倒数第 n个，即需要删除 len-n+1个，需要确定链表长度，
+// 一种是先遍历一次链表，获取长度，二种是使用快慢指针，让快指针先走 n步，再快慢一起走，快指针到末尾时，慢指针即在倒数第 n个位置
  */
 // use std::sync::Mutex;
 // 
