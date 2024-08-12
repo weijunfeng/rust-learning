@@ -18,6 +18,8 @@ mod twenty_two;
 mod two;
 mod two_hundred_thirty_nine;
 mod forty_one;
+mod three_hundred_and_twenty_two;
+mod seventy_six;
 
 fn main() {
     println!("Hello, world!");
