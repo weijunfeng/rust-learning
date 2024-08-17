@@ -15,6 +15,7 @@ mod memory_page_hotcold_marking;
 mod array_sort;
 mod pizza_fair_division;
 mod binary_tree_traversal;
+mod top_ten_classics_quick_sort;
 
 fn main() {
 
