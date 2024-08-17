@@ -47,7 +47,7 @@ impl Solution {
     // 滑动窗口解法
     // 先定义一个 need标识 t 中字符出现的次数
     // 再定义一个 window标识 left到 right窗口内字符出现次数，
-    // 先扩张 right到 window记录包含全部的 need,则找到一个窗口，再扩张 left
+    // 先扩张 right到 window记录包含全部的 need,则找到一个窗口，再扩张 left，找到最小的子串的开始位置和长度
     pub fn min_window(s: String, t: String) -> String {
         let mut need: HashMap<char, i32> = HashMap::new();
         let mut window: HashMap<char, i32> = HashMap::new();

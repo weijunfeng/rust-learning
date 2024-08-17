@@ -27,18 +27,25 @@ struct Solution;
 impl Solution {
     // 解题思路:模拟两数相乘
     pub fn multiply(num1: String, num2: String) -> String {
+        // 两数相乘后的长度，不可能比这两个字符串的长度和长
+        // result高位表示num1和num2中每个数相乘后的个位数，次高位标识进位数
         let mut result = vec![0; num1.len() + num2.len()];
-        for i in num1.len() - 1..=0 {
-            for j in num2.len() - 1..=0 {
+        // 从右向左处理乘数，即从低位到高位相乘
+        for i in (0..num1.len()).rev() {
+            for j in (0..num2.len()).rev() {
+                // i和 j位置的乘数需要加上上一次的进位数，即 i+j+1的位置
                 let multiply = &num1[i..i + 1].parse::<i32>().unwrap()
                     * &num2[j..j + 1].parse::<i32>().unwrap()
                     + result[i + j + 1];
+                // 使用 i+j+1的位置存放 i和 j 相乘后的个位数
+                // 使用 i+j的位置存放 i和 j 相乘后的进位数
                 result[i + j + 1] = multiply % 10;
-                result[i + j] = multiply / 10;
+                result[i + j] += multiply / 10;
             }
         }
         let mut result_str = String::new();
         for i in result {
+            // 转为字符串，需要排除 result中前部未被处理的 0 值
             if !(result_str.is_empty() && i == 0) {
                 result_str.push_str(&i.to_string());
             }
