@@ -24,6 +24,13 @@ mod one_hundred_and_five;
 mod thirty_two;
 mod forty_three;
 mod one_hundred_and_fifty_five;
+mod one_hundred_and_fifty_one;
+mod one_hundred_and_twenty_nine;
+mod one_hundred_and_one;
+mod one_hundred_and_forty_four;
+mod one_hundred_and_four;
+mod one_hundred_and_ten;
+mod thirty_nine;
 
 fn main() {
     println!("Hello, world!");
