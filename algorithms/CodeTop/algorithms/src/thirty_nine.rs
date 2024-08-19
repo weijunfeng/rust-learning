@@ -39,9 +39,27 @@ struct Solution;
 
 impl Solution {
     pub fn combination_sum(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
+        let mut candidates = candidates;
+        candidates.sort();
         let mut result = vec![];
-        Self::back_tracking(&candidates, target, 0, 0, &mut vec![], &mut result);
+        Self::back_tracking2(&candidates, target, 0, &mut vec![], &mut result);
         result
+    }
+    // candidates有序，方便对 target做差值处理，如果在一个位置值大于 target则无效遍历后续
+    fn back_tracking2(candidates: &Vec<i32>, target: i32, start: usize, path: &mut Vec<i32>, result: &mut Vec<Vec<i32>>) {
+        if target == 0 {
+            result.push(path.clone());
+            return;
+        }
+        for i in start..candidates.len() {
+            if candidates[i] > target {
+                break;
+            }
+            path.push(candidates[i]);
+            // 递归，如果数据不能重复，则从 i+1开始
+            Self::back_tracking2(candidates, target - candidates[i], i, path, result);
+            path.pop();
+        }
     }
 
     // 回溯算法处理
