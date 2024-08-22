@@ -73,3 +73,6 @@
 [submodule "gold-miner"]
 	path = gold-miner
 	url = https://github.com/xitu/gold-miner.git
+[submodule "rust/zed"]
+	path = rust/zed
+	url = https://github.com/zed-industries/zed.git
