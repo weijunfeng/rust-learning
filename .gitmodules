@@ -76,3 +76,6 @@
 [submodule "rust/zed"]
 	path = rust/zed
 	url = https://github.com/zed-industries/zed.git
+[submodule "rust/gpui-component"]
+	path = rust/gpui-component
+	url = https://github.com/huacnlee/gpui-component.git
