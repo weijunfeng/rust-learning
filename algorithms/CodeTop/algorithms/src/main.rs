@@ -31,6 +31,8 @@ mod one_hundred_and_forty_four;
 mod one_hundred_and_four;
 mod one_hundred_and_ten;
 mod thirty_nine;
+mod two_hundred_and_thirty_four;
+mod one_hundred_and_twelve;
 
 fn main() {
     println!("Hello, world!");
