@@ -79,3 +79,6 @@
 [submodule "rust/gpui-component"]
 	path = rust/gpui-component
 	url = https://github.com/huacnlee/gpui-component.git
+[submodule "rust/rust-webpack-template"]
+	path = rust/rust-webpack-template
+	url = https://github.com/rustwasm/rust-webpack-template.git
