@@ -1,5 +1,6 @@
 use std::collections::HashSet;
-use std::fmt::Debug;
+use std::fmt;
+use std::fmt::{Debug, Formatter};
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
 
@@ -17,6 +18,10 @@ struct RepoTag {
     name: String,
 }
 
+/// 发布内容信息
+#[derive(Serialize, Deserialize)]
+struct Body(String);
+
 /// 仓库发布信息
 #[derive(Debug, Serialize, Deserialize)]
 struct RepoRelease {
@@ -25,7 +30,7 @@ struct RepoRelease {
     /// tag 名
     tag_name: String,
     /// 发布内容
-    body: String,
+    body: Body,
     /// 发布日期
     published_at: String,
     /// 发布分支
@@ -45,6 +50,13 @@ struct Repo {
     name: String,
     /// 仓库地址
     url: String,
+}
+
+/// 重写 Body 默认 debug输出信息，处理支持文本换行，默认的 Debug输出会把换行符当成字符串输出
+impl Debug for Body {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.0)
+    }
 }
 
 /// 从`all_tag`过滤出`target_tag_name`所在位置的数据，如果`target_tag_name`不在`all_tag`中则返回最多 5 个数据长度
