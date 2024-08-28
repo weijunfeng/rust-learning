@@ -17,7 +17,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
+Ok([RepoTag { name: "v1.7.0-dev1756" }, RepoTag { name: "v1.7.0-dev1750" }, RepoTag { name: "v1.7.0-dev1743" }, RepoTag { name: "v1.7.0-dev1742" }, RepoTag { name: "v1.7.0-dev1739" }, RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha02" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.serialization", url: "https://github.com/Kotlin/kotlinx.serialization" }:
@@ -38,16 +38,16 @@ Ok([RepoTag { name: "v1.7.1" }])
 Repo { owner: "Kotlin", name: "kotlinx.coroutines", url: "https://github.com/Kotlin/kotlinx.coroutines" }:
 Ok(
     RepoRelease {
-        name: "1.9.0-RC",
-        tag_name: "1.9.0-RC",
-        body: "* Kotlin was updated to 2.0 (#4137).\r\n* Introduced the `Flow<T>.chunked(size: Int): Flow<List<T>>` operator that groups emitted values into groups of the given size (#1290).\r\n* Closeable dispatchers are instances of `AutoCloseable` now (#4123).\r\n* `limitedParallelism` now optionally accepts the name of the dispatcher view for easier debugging (#4023).\r\n* Marked the classes and interfaces that are not supposed to be inherited from with the new `InternalForInheritanceCoroutinesApi` opt-in (#3770).\r\n* Marked the classes and interfaces inheriting from which is not stable with the new `ExperimentalForInheritanceCoroutinesApi` opt-in (#3770).\r\n* Wasm/WASI target support (#4064). Thanks, @igoriakovlev!\r\n* Promoted `CoroutineDispatcher.limitedParallelism` to stable (#3864).\r\n* Promoted `CancellableContinuation.resume` with an `onCancellation` lambda to stable, providing extra arguments to the lambda (#4088).\r\n* Ensured a more intuitive ordering of tasks in `runBlocking` (#4134).\r\n* Simplified the internal implementation of `Job` (#4053).\r\n* Fixed a bug that prevented non-Android `Dispatchers.Main` from initializing when the Firebase dependency is used (#3914).\r\n* Calling `hasNext` on a `Channel`'s iterator is idempotent (#4065). Thanks, @gitpaxultek!\r\n* `CoroutineScope()` created without an explicit dispatcher uses `Dispatchers.Default` on Native (#4074). Thanks, @whyoleg!\r\n* Small tweaks and documentation fixes.",
-        published_at: "2024-05-28T17:30:32Z",
+        name: "1.9.0-RC.2",
+        tag_name: "1.9.0-RC.2",
+        body: "* Advanced the deprecation levels for `BroadcastChannel`-based API (#4197).\r\n* Advanced the deprecation levels for the old `kotlinx-coroutines-test` API (#4198).\r\n* Promoted `CoroutineStart.ATOMIC` from `ExperimentalCoroutinesApi` to `DelicateCoroutinesApi` (#4169).\r\n* Reworked the documentation for `CoroutineStart` and `Channel`-based API (#4147, #4148, #4167). Thanks, @globsterg!\r\n* Forbid casting a `Mutex` to `Semaphore` (#4176).\r\n* Deprecated `Job.cancelFutureOnCompletion` (#4156).\r\n* Worked around a stack overflow that may occur when calling `asDeferred` on a `Future` many times (#4156).\r\n* Fixed a bug that disallowed setting a custom `probeCoroutineResumed` when starting coroutines with `UNDISPATCHED` (#4162).\r\n* No longer initialize `Dispatchers.IO` on the JVM when other standard dispatchers are accessed (#4166). Thanks, @metalhead8816!\r\n* Small tweaks, fixes, and documentation improvements.",
+        published_at: "2024-08-13T11:25:35Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "1.9.0-RC" }])
+Ok([RepoTag { name: "1.9.0-RC.2" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.atomicfu", url: "https://github.com/Kotlin/kotlinx.atomicfu" }:
@@ -113,31 +113,31 @@ Ok([RepoTag { name: "v1.1.0" }, RepoTag { name: "v1.0.8" }, RepoTag { name: "v1.
 Repo { owner: "touchlab", name: "SKIE", url: "https://github.com/touchlab/SKIE" }:
 Ok(
     RepoRelease {
-        name: "0.8.2",
-        tag_name: "0.8.2",
-        body: "[Change log](https://skie.touchlab.co/changelog/0.8.2)",
-        published_at: "2024-06-06T10:11:08Z",
+        name: "0.8.4",
+        tag_name: "0.8.4",
+        body: "[Change log](https://skie.touchlab.co/changelog/0.8.4)",
+        published_at: "2024-08-07T06:42:12Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "site/0.4.0-flows" }, RepoTag { name: "review-end" }, RepoTag { name: "0.8.3" }, RepoTag { name: "0.8.2" }])
+Ok([RepoTag { name: "site/0.4.0-flows" }, RepoTag { name: "review-end" }, RepoTag { name: "0.9.0-RC.2" }, RepoTag { name: "0.9.0-RC.1" }, RepoTag { name: "0.8.4" }])
 
 
 Repo { owner: "touchlab", name: "KMMBridge", url: "https://github.com/touchlab/KMMBridge" }:
 Ok(
     RepoRelease {
-        name: "0.5.5",
-        tag_name: "0.5.5",
+        name: "0.5.7",
+        tag_name: "0.5.7",
         body: "",
-        published_at: "2024-04-21T16:50:10Z",
+        published_at: "2024-08-08T17:24:19Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "kmm-artifacts-1.0" }, RepoTag { name: "0.5.5" }])
+Ok([RepoTag { name: "kmm-artifacts-1.0" }, RepoTag { name: "0.5.7" }])
 
 
 Repo { owner: "ttypic", name: "swift-klib-plugin", url: "https://github.com/ttypic/swift-klib-plugin" }:
@@ -173,10 +173,10 @@ Ok([RepoTag { name: "v1.1.1" }])
 Repo { owner: "InsertKoinIO", name: "koin", url: "https://github.com/InsertKoinIO/koin" }:
 Ok(
     RepoRelease {
-        name: "3.5.6",
-        tag_name: "3.5.6",
-        body: "## What's Changed\r\n* Fix Gradle dependencies to be in 3.5.3 style by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1851\r\n\r\n\r\n**Full Changelog**: https://github.com/InsertKoinIO/koin/compare/3.5.5...3.5.6",
-        published_at: "2024-04-12T06:57:36Z",
+        name: "4.0.0-RC1",
+        tag_name: "4.0.0-RC1",
+        body: "## What's Changed\r\n* Add Lazy<Module> concrete implementation & missing \"plus\" operator by @cpaleop in https://github.com/InsertKoinIO/koin/pull/1756\r\n* flatten: use loop and ArrayDeque instead of recursion by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1801\r\n* 3.6 - full upgrade environment by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1839\r\n* Add watchos support by @suau in https://github.com/InsertKoinIO/koin/pull/1751\r\n* fix(flatten): use `LinkedHashSet` instead of `HashSet` by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1841\r\n* Fix CI: update `examples/gradle/versions.gradle` kotlin to 1.9.23 by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1846\r\n* update quickstart hyperlink for KMP by @wiryadev in https://github.com/InsertKoinIO/koin/pull/1852\r\n* koin-compose: use rememberUpdatedState with ParametersDefinition, optimized KoinApplication, KoinContext, KoinIsolatedContext by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1768\r\n* Checkmodules deprecation by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1867\r\n* makes lazy modules & extension engine stable by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1868\r\n* 3.6.0 compose viewmodel - KMP by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1875\r\n* Instance Factory isolation fix by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1905\r\n* Module Mapping isolation fix  by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1915\r\n* [maintenance] androidContext readability by @GrzegorzBobryk in https://github.com/InsertKoinIO/koin/pull/1655\r\n* [maintenance] toLowerCase deprecation by @GrzegorzBobryk in https://github.com/InsertKoinIO/koin/pull/1653\r\n* Upgrade for Kotlin 2 stack by @arnaudgiuliani \r\n* Multiplatform ViewModel API by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1924\r\n\r\n## New Contributors\r\n* @cpaleop made their first contribution in https://github.com/InsertKoinIO/koin/pull/1756\r\n* @suau made their first contribution in https://github.com/InsertKoinIO/koin/pull/1751\r\n\r\n**Full Changelog**: https://github.com/InsertKoinIO/koin/compare/3.5.6...4.0.0-RC1",
+        published_at: "2024-07-25T15:42:03Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
@@ -225,46 +225,46 @@ Ok([RepoTag { name: "parent-3.9.0" }, RepoTag { name: "parent-3.8.0" }, RepoTag 
 Repo { owner: "rickclephas", name: "KMP-NativeCoroutines", url: "https://github.com/rickclephas/KMP-NativeCoroutines" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-ALPHA-32",
-        tag_name: "v1.0.0-ALPHA-32",
-        body: "### Kotlin\r\n\r\n* Updated KSP to 1.0.23",
-        published_at: "2024-07-14T11:44:20Z",
+        name: "v1.0.0-ALPHA-34",
+        tag_name: "v1.0.0-ALPHA-34",
+        body: "### Kotlin\r\n\r\n* Updated Kotlin to 2.0.10",
+        published_at: "2024-08-10T11:35:52Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-ALPHA-32" }])
+Ok([RepoTag { name: "v1.0.0-ALPHA-34" }])
 
 
 Repo { owner: "rickclephas", name: "KMM-ViewModel", url: "https://github.com/rickclephas/KMM-ViewModel" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-BETA-3",
-        tag_name: "v1.0.0-BETA-3",
-        body: "* Updated Kotlin to 2.0.0",
-        published_at: "2024-05-22T20:04:07Z",
+        name: "v1.0.0-BETA-4",
+        tag_name: "v1.0.0-BETA-4",
+        body: "* Updated Kotlin to 2.0.10\r\n* Updated `androidx.lifecycle` to 2.8.4",
+        published_at: "2024-08-11T12:59:30Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-BETA-3" }])
+Ok([RepoTag { name: "v1.0.0-BETA-4" }])
 
 
 Repo { owner: "google", name: "ksp", url: "https://github.com/google/ksp/releases" }:
 Ok(
     RepoRelease {
-        name: "2.0.0-1.0.23",
-        tag_name: "2.0.0-1.0.23",
-        body: "## Issues fixed ## \r\n* [KSP2] Nullable type arg type becomes non-null after replace() call #1856\r\n* Annotations on enum entires on K2 are missing #1962\r\n* Got IllegalStateException when calling replace() on error types #1960\r\n* [KSP2] Resolver.getJvmCheckedException doesn't work on property accessors #1900\r\n* [KSP2] Property getter JVM names in data classes become componentN instead of getXXX #1958\r\n* [KSP2] Resolver.mapToJvmSignature doesn't unwrap inline classes #1859\r\n* [KSP2] KSFunctionDeclaration.asMemberOf does not return correct types #1919\r\n* implement getOwnerJvmClassName #1979\r\n* [KSP2] KSPropertyDeclaration.hasBackingField returns inconsistent results #1939\r\n* [KSP2] Annotations on extension receivers are missing #1899",
-        published_at: "2024-07-11T19:28:54Z",
-        target_commitish: "main",
+        name: "2.0.10-1.0.24",
+        tag_name: "2.0.10-1.0.24",
+        body: "## What's Changed\r\n* UPDATE_KOTLIN_VERSION: 2.0.10 by @ting-yuan in https://github.com/google/ksp/pull/2022\r\n\r\n",
+        published_at: "2024-08-06T19:07:37Z",
+        target_commitish: "1.0.24-release-2.0.10",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "test-tag" }, RepoTag { name: "jvg-test" }, RepoTag { name: "2.0.20-Beta2-1.0.23" }, RepoTag { name: "2.0.20-Beta1-1.0.22" }, RepoTag { name: "2.0.10-RC-1.0.23" }, RepoTag { name: "2.0.0-RC3-1.0.20" }, RepoTag { name: "2.0.0-RC2-1.0.20" }, RepoTag { name: "2.0.0-RC1-1.0.20" }, RepoTag { name: "2.0.0-Beta5-1.0.20" }, RepoTag { name: "2.0.0-Beta5-1.0.19" }, RepoTag { name: "2.0.0-Beta4-1.0.19" }, RepoTag { name: "2.0.0-Beta4-1.0.17" }, RepoTag { name: "2.0.0-Beta3-1.0.17" }, RepoTag { name: "2.0.0-Beta2-1.0.16" }, RepoTag { name: "2.0.0-Beta1-1.0.15" }, RepoTag { name: "2.0.0-Beta1-1.0.14" }, RepoTag { name: "2.0.0-1.0.23" }])
+Ok([RepoTag { name: "test-tag" }, RepoTag { name: "jvg-test" }, RepoTag { name: "2.0.20-RC-1.0.24" }, RepoTag { name: "2.0.20-RC2-1.0.24" }, RepoTag { name: "2.0.20-Beta2-1.0.23" }, RepoTag { name: "2.0.20-Beta1-1.0.22" }, RepoTag { name: "2.0.10-RC-1.0.23" }, RepoTag { name: "2.0.10-RC2-1.0.24" }, RepoTag { name: "2.0.10-1.0.24" }])
 
 
 Repo { owner: "icerockdev", name: "moko-kswift", url: "https://github.com/icerockdev/moko-kswift.git" }:
