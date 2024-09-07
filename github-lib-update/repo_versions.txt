@@ -760,7 +760,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v2.0.20" }])
+Ok([RepoTag { name: "v2.0.20" }, RepoTag { name: "v2.0.20-RC2" }, RepoTag { name: "v2.0.20-RC" }, RepoTag { name: "v2.0.20-Beta2" }, RepoTag { name: "v2.0.20-Beta1" }, RepoTag { name: "v2.0.10" }, RepoTag { name: "v2.0.10-RC2" }, RepoTag { name: "v2.0.10-RC" }, RepoTag { name: "v2.0.0" }, RepoTag { name: "v2.0.0-RC3" }, RepoTag { name: "v2.0.0-RC2" }])
 
 
 Repo { owner: "java-native-access", name: "jna", url: "https://github.com/java-native-access/jna.git" }:
@@ -823,39 +823,66 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.7.0-dev1756" }, RepoTag { name: "v1.7.0-dev1750" }, RepoTag { name: "v1.7.0-dev1743" }, RepoTag { name: "v1.7.0-dev1742" }, RepoTag { name: "v1.7.0-dev1739" }, RepoTag { name: "v1.7.0-dev1731" }, RepoTag { name: "v1.7.0-dev1727" }, RepoTag { name: "v1.7.0-dev1721" }, RepoTag { name: "v1.7.0-dev1703" }, RepoTag { name: "v1.7.0-dev1698" }, RepoTag { name: "v1.7.0-dev1686" }, RepoTag { name: "v1.7.0-alpha03" }, RepoTag { name: "v1.7.0-alpha02" }, RepoTag { name: "v1.7.0-alpha01" }, RepoTag { name: "v1.6.20-dev1673" }, RepoTag { name: "v1.6.20-dev1667" }, RepoTag { name: "v1.6.20-dev1663" }, RepoTag { name: "v1.6.20-dev1646" }, RepoTag { name: "v1.6.11" }])
+Ok([RepoTag { name: "v1.6.11" }, RepoTag { name: "v1.6.10" }, RepoTag { name: "v1.6.10-rc03" }, RepoTag { name: "v1.6.10-rc02" }, RepoTag { name: "v1.6.10-rc01" }, RepoTag { name: "v1.6.10-dev1640" }, RepoTag { name: "v1.6.10-dev1632" }, RepoTag { name: "v1.6.10-dev1613" }, RepoTag { name: "v1.6.10-dev1608" }, RepoTag { name: "v1.6.10-dev1599" }, RepoTag { name: "v1.6.10-dev1596" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.serialization", url: "https://github.com/Kotlin/kotlinx.serialization" }:
 Ok(
     RepoRelease {
-        name: "1.7.1",
-        tag_name: "v1.7.1",
-        body: This is a bugfix release that aims to fix missing `kotlinx-serialization-hocon` artifact.
-        It also contains experimental integration with `kotlinx-io` library.
-        Kotlin 2.0.0 is used by default.
+        name: "1.7.2",
+        tag_name: "v1.7.2",
+        body: This release provides several new features, including a major Cbor configuration rework.
+        It uses Kotlin 2.0.20 by default. 
         
-        ### Fixed HOCON publication
+        ## Cbor feature set for COSE compliance
         
-        Sadly, 1.7.0 release was published incomplete: `kotlinx-serialization-hocon` artifact is missing from 1.7.0 and 1.7.0-RC releases.
-        This release fixes this problem and now `kotlinx-serialization-hocon` is available again with 1.7.1 version.
-        No other changes were made to this artifact. Related ticket: [#2717](https://github.com/Kotlin/kotlinx.serialization/issues/2717).
+        This change brings a lot of features to the CBOR format, namely:
         
-        ### Add integration with a kotlinx-io library
+        - Serial Labels — see `@CborLabel` annotation and `preferCborLabelsOverNames` flag.
+        - Tagging of keys and values — see `encode*Tags` and `verify*Tags` set of flags
+        - Definite length encoding — see `useDefiniteLengthEncoding`. This flag affects object encoding, since decoding of arrays with definite lenghts is automatically supported.
+        - Option to globally prefer major type 2 for byte array encoding — see `alwaysUseByteString` flag.
         
-        [`kotlinx-io`](https://github.com/Kotlin/kotlinx-io) is an official multiplatform library that provides basic IO primitives, similar to Okio. 
-        kotlinx.serialization integration is now available in a separate artifact, located at the `kotlinx-serialization-json-io` coordinates. Integration artifact provides functions similar to existing [Okio integration](https://kotlinlang.org/api/kotlinx.serialization/kotlinx-serialization-json-okio/kotlinx.serialization.json.okio/): `encodeToSink`, `decodeFromSource`, and `decodeSourceToSequence`. Check out the [PR](https://github.com/Kotlin/kotlinx.serialization/pull/2707) for more details.
+        Since there are quite a lot of flags now, they were restructured to a separate `CborConfiguration` class, similarly to `JsonConfiguration`. It is possible to retrieve this configuration from `CborEncoder/CborDecoder` interfaces in your custom serializers (see their documentation for details).
         
-        ### Other bugfixes
-          * Prohibited use of elements other than JsonObject in JsonTransformingSerializer with polymorphic serialization (#2715)
+        All of these features make it possible to serialize and parse [COSE-compliant CBOR](https://datatracker.ietf.org/doc/html/rfc8152), for example, ISO/IEC 18013-5:2021-compliant mobile driving license data. In case you want to make use of them, there is a predefined `Cbor.CoseCompliant` instance.
+        However, some canonicalization steps (such as sorting keys) still need to be performed manually. 
+        
+        This functionality [was contributed](https://github.com/Kotlin/kotlinx.serialization/pull/2412) to us by [Bernd Prünster](https://github.com/JesusMcCloud) and [Christian](https://github.com/nodh).
+        
+        ## Keeping generated serializers
+        
+        One of the most requested features for serialization plugin was to continue to generate a serializer even if a custom one is specified for the class. It allows using a plugin-generated serializer in a fallback or delegate strategy, accessing type structure via descriptor, using default serialization behavior in inheritors that do not use custom serializers.
+        
+        Starting with this release, you can specify the `@KeepGeneratedSerializer` annotation on the class declaration to instruct the plugin to continue generating the serializer. In this case, the serializer will be accessible using the `.generatedSerializer()` function on the class's companion object.
+        
+        > This annotation is currently experimental. Kotlin 2.0.20 or higher is required for this feature to work.
+        
+        You can check out the examples in [the documentation](docs/serializers.md#simultaneous-use-of-plugin-generated-and-custom-serializers) and in the PRs: [#2758](https://github.com/Kotlin/kotlinx.serialization/pull/2758), [#2669](https://github.com/Kotlin/kotlinx.serialization/pull/2669).
+        
+        ## Serializer for kotlin.uuid.Uuid
+        
+        Kotlin 2.0.20 [added](https://kotlinlang.org/docs/whatsnew2020.html#support-for-uuids-in-the-common-kotlin-standard-library) a common class to represent UUIDs in a multiplatform code. kotlinx.serialization 1.7.2 provides a corresponding `Uuid.serializer()` for it, making it possible to use it in `@Serializable` classes.
+        
+        Note that for now, serializer should be provided manually with [`@Contextual` annotation](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#contextual-serialization). Plugin will be able to automatically insert `Uuid` serializer in Kotlin 2.1.0.
+        
+        See more details in the [corresponding PR](https://github.com/Kotlin/kotlinx.serialization/pull/2744).
+        
+        ## Other bugfixes and improvements
+        
+          * Prohibited using of zero and negative field numbers in ProtoNumber (#2766)
+          * Improve readability of protobuf decoding exception messages (#2768) (thanks to [xiaozhikang0916](https://github.com/xiaozhikang0916))
+          * docs(serializers): Fix grammatical errors (#2779) (thanks to [jamhour1g](https://github.com/jamhour1g))
+          * Fixed VerifyError after ProGuard optimization (#2728)
+          * Add wasm-wasi target to Okio integration (#2727)
         ,
-        published_at: "2024-06-25T16:59:45Z",
+        published_at: "2024-08-28T17:45:05Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.7.1" }])
+Ok([RepoTag { name: "v1.7.2" }, RepoTag { name: "v1.7.1" }, RepoTag { name: "v1.7.0" }, RepoTag { name: "v1.7.0-RC" }, RepoTag { name: "v1.6.3" }, RepoTag { name: "v1.6.2" }, RepoTag { name: "v1.6.1" }, RepoTag { name: "v1.6.0" }, RepoTag { name: "v1.6.0-RC" }, RepoTag { name: "v1.5.1" }, RepoTag { name: "v1.5.0" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.coroutines", url: "https://github.com/Kotlin/kotlinx.coroutines" }:
@@ -879,7 +906,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "1.9.0-RC.2" }])
+Ok([RepoTag { name: "1.9.0-RC.2" }, RepoTag { name: "1.9.0-RC" }, RepoTag { name: "1.8.1" }, RepoTag { name: "1.8.1-Beta" }, RepoTag { name: "1.8.0" }, RepoTag { name: "1.8.0-RC2" }, RepoTag { name: "1.8.0-RC" }, RepoTag { name: "1.7.3" }, RepoTag { name: "1.7.2" }, RepoTag { name: "1.7.1" }, RepoTag { name: "1.7.0" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.atomicfu", url: "https://github.com/Kotlin/kotlinx.atomicfu" }:
@@ -899,7 +926,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "0.25.0" }])
+Ok([RepoTag { name: "0.25.0" }, RepoTag { name: "0.24.0" }, RepoTag { name: "0.23.2" }, RepoTag { name: "0.23.1" }, RepoTag { name: "0.23.0" }, RepoTag { name: "0.22.0" }, RepoTag { name: "0.21.0" }, RepoTag { name: "0.20.2" }, RepoTag { name: "0.20.1" }, RepoTag { name: "0.20.0" }, RepoTag { name: "0.19.0" }])
 
 
 Repo { owner: "ktorio", name: "ktor", url: "https://github.com/ktorio/ktor" }:
@@ -955,7 +982,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "tmp-1" }, RepoTag { name: "ktor-0.4.0" }, RepoTag { name: "ktor-0.3.3" }, RepoTag { name: "ktor-0.3.2" }, RepoTag { name: "ktor-0.3.1" }])
+Ok([RepoTag { name: "3.0.0-beta-2" }, RepoTag { name: "3.0.0-beta-1" }, RepoTag { name: "2.3.12" }, RepoTag { name: "2.3.11" }, RepoTag { name: "2.3.10" }, RepoTag { name: "2.3.9" }, RepoTag { name: "2.3.8" }, RepoTag { name: "2.3.7" }, RepoTag { name: "2.3.6" }, RepoTag { name: "2.3.5" }, RepoTag { name: "2.3.4" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx-datetime", url: "https://github.com/Kotlin/kotlinx-datetime" }:
@@ -974,7 +1001,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v0.6.1" }])
+Ok([RepoTag { name: "v0.6.1" }, RepoTag { name: "v0.6.0" }, RepoTag { name: "v0.6.0-RC.2" }, RepoTag { name: "v0.6.0-RC" }, RepoTag { name: "v0.5.0" }, RepoTag { name: "v0.4.1" }, RepoTag { name: "v0.4.0" }, RepoTag { name: "v0.3.3" }, RepoTag { name: "v0.3.2" }, RepoTag { name: "v0.3.1" }, RepoTag { name: "v0.3.0" }])
 
 
 Repo { owner: "touchlab", name: "SQLiter", url: "https://github.com/touchlab/SQLiter" }:
@@ -989,7 +1016,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.1.0" }, RepoTag { name: "v1.0.8" }, RepoTag { name: "v1.0.2" }, RepoTag { name: "1.3.1" }])
+Ok([RepoTag { name: "1.3.1" }, RepoTag { name: "1.3.0" }, RepoTag { name: "1.2.1" }, RepoTag { name: "1.2.0" }, RepoTag { name: "1.0.10" }, RepoTag { name: "1.0.9" }, RepoTag { name: "1.0.3" }, RepoTag { name: "1.0.0" }, RepoTag { name: "0.7.1" }, RepoTag { name: "0.7.0" }, RepoTag { name: "0.6.4" }])
 
 
 Repo { owner: "touchlab", name: "SKIE", url: "https://github.com/touchlab/SKIE" }:
@@ -1004,22 +1031,24 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "site/0.4.0-flows" }, RepoTag { name: "review-end" }, RepoTag { name: "0.9.0-RC.3" }, RepoTag { name: "0.9.0-RC.2" }, RepoTag { name: "0.9.0-RC.1" }, RepoTag { name: "0.8.4" }])
+Ok([RepoTag { name: "0.8.4" }, RepoTag { name: "0.8.3" }, RepoTag { name: "0.8.2" }, RepoTag { name: "0.8.1" }, RepoTag { name: "0.8.0" }, RepoTag { name: "0.7.2" }, RepoTag { name: "0.7.2-preview.2.0.0-RC3" }, RepoTag { name: "0.7.1" }, RepoTag { name: "0.7.1-preview.2.0.0-RC3" }, RepoTag { name: "0.7.0" }, RepoTag { name: "0.7.0-preview.2.0.0-RC3" }])
 
 
 Repo { owner: "touchlab", name: "KMMBridge", url: "https://github.com/touchlab/KMMBridge" }:
 Ok(
     RepoRelease {
-        name: "0.5.7",
-        tag_name: "0.5.7",
-        body: ,
-        published_at: "2024-08-08T17:24:19Z",
+        name: "1.0.1",
+        tag_name: "1.0.1",
+        body: Minor release with better error reporting for GitHub Release publishing issues.
+        
+        There are other changes to the template project at https://github.com/touchlab/KMMBridgeSPMQuickStart, which help avoid GitHub Actions permissions issues.,
+        published_at: "2024-09-03T20:35:44Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "kmm-artifacts-1.0" }, RepoTag { name: "0.5.7" }])
+Ok([RepoTag { name: "1.0.1" }, RepoTag { name: "1.0.0" }, RepoTag { name: "0.5.7" }, RepoTag { name: "0.5.5" }, RepoTag { name: "0.5.4" }, RepoTag { name: "0.5.3" }, RepoTag { name: "0.5.2" }, RepoTag { name: "0.5.1" }, RepoTag { name: "0.5.1-alpha2" }, RepoTag { name: "0.5.1-alpha1" }, RepoTag { name: "0.5.0" }])
 
 
 Repo { owner: "ttypic", name: "swift-klib-plugin", url: "https://github.com/ttypic/swift-klib-plugin" }:
@@ -1034,61 +1063,61 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v0.6.3" }])
+Ok([RepoTag { name: "v0.6.3" }, RepoTag { name: "v0.6.2" }, RepoTag { name: "v0.6.1" }, RepoTag { name: "v0.6.0" }, RepoTag { name: "v0.5.1" }, RepoTag { name: "v0.5.0" }, RepoTag { name: "v0.4.0" }, RepoTag { name: "v0.3.0" }, RepoTag { name: "v0.2.1" }, RepoTag { name: "v0.2.0" }, RepoTag { name: "v0.1.0" }])
 
 
 Repo { owner: "russhwolf", name: "multiplatform-settings", url: "https://github.com/russhwolf/multiplatform-settings" }:
 Ok(
     RepoRelease {
-        name: "v1.1.1",
-        tag_name: "v1.1.1",
-        body: - Update to Kotlin 1.9.20
-        - Fix a crash that could happen when using the no-argument `KeychainSettings` constructor (#175),
-        published_at: "2023-11-21T05:12:46Z",
+        name: "v1.2.0",
+        tag_name: "v1.2.0",
+        body: - Update to Kotlin 2.0.0, Gradle 8.7, and Android Gradle Plugin 8.3.2
+        - Add alternative APIs to `multiplatform-settings-serialization` that don't require manually passing a serializer (#172). Thanks for contributions by @findusl
+        - New experimental module `multiplatform-settings-make-observable` to convert non-observable settings to observable by
+          wiring in callbacks when platform observability APIs don't exist (#155, #184). Thanks for contributions by @psuzn.
+        - Add all supported targets to `multiplatform-settings-coroutines` and `multiplatform-settings-serialization`, including
+          `wasmJs`.
+        - Add additional targets to `multiplatform-settings-datastore` based on multiplatform Datastore version 1.1.0
+        - Add `wasmWasi` support to `multiplatform-settings`, `multiplatform-settings-test`, and
+          `multiplatform-settings-make-observable`.
+        - Add `Stateflow` analogs to existing `Flow` extensions in `multiplatform-settings-coroutines`. (#156)
+        - Make `SettingsInitializer` public so it's easier to configure custom android.startup initialization or write tests
+          when using `multiplatform-settings-no-arg`
+        - Adjust `KeychainSettings` to avoid duplicated authentication requests (#193). Thanks for contributions by @crysxd
+        - Modernize gradle and publication config. This shouldn't impact consumers, but please file an issue if you notice
+          anything missing.,
+        published_at: "2024-09-02T02:42:52Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.1.1" }])
+Ok([RepoTag { name: "v1.2.0" }, RepoTag { name: "v1.1.1" }, RepoTag { name: "v1.1.0" }, RepoTag { name: "v1.0.0" }, RepoTag { name: "v1.0.0-alpha01" }, RepoTag { name: "v1.0.0-RC" }, RepoTag { name: "v0.9" }, RepoTag { name: "v0.8.1" }, RepoTag { name: "v0.8" }, RepoTag { name: "v0.7.7" }, RepoTag { name: "v0.7.6" }])
 
 
 Repo { owner: "InsertKoinIO", name: "koin", url: "https://github.com/InsertKoinIO/koin" }:
 Ok(
     RepoRelease {
-        name: "4.0.0-RC1",
-        tag_name: "4.0.0-RC1",
+        name: "4.0.0-RC2",
+        tag_name: "4.0.0-RC2",
         body: ## What's Changed
-        * Add Lazy<Module> concrete implementation & missing "plus" operator by @cpaleop in https://github.com/InsertKoinIO/koin/pull/1756
-        * flatten: use loop and ArrayDeque instead of recursion by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1801
-        * 3.6 - full upgrade environment by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1839
-        * Add watchos support by @suau in https://github.com/InsertKoinIO/koin/pull/1751
-        * fix(flatten): use `LinkedHashSet` instead of `HashSet` by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1841
-        * Fix CI: update `examples/gradle/versions.gradle` kotlin to 1.9.23 by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1846
-        * update quickstart hyperlink for KMP by @wiryadev in https://github.com/InsertKoinIO/koin/pull/1852
-        * koin-compose: use rememberUpdatedState with ParametersDefinition, optimized KoinApplication, KoinContext, KoinIsolatedContext by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1768
-        * Checkmodules deprecation by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1867
-        * makes lazy modules & extension engine stable by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1868
-        * 3.6.0 compose viewmodel - KMP by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1875
-        * Instance Factory isolation fix by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1905
-        * Module Mapping isolation fix  by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1915
-        * [maintenance] androidContext readability by @GrzegorzBobryk in https://github.com/InsertKoinIO/koin/pull/1655
-        * [maintenance] toLowerCase deprecation by @GrzegorzBobryk in https://github.com/InsertKoinIO/koin/pull/1653
-        * Upgrade for Kotlin 2 stack by @arnaudgiuliani 
-        * Multiplatform ViewModel API by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1924
+        * update `rememberKoinModules` usage sample by @wiryadev in https://github.com/InsertKoinIO/koin/pull/1856
+        * Split VM / Nav API - Retrograde to composeNavigation = "2.8.0-alpha02" by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1953
+        * Restoring CheckModules as deprecated code by @pedrofsn in https://github.com/InsertKoinIO/koin/pull/1939
+        * Fix SLF4J logger by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1954
+        * [Breaking] KoinApplication reworked to start/stop on Compose cycle by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1960
+        * Retained scope id fix by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1961
+        * Fix CMP NavBackStack argument unboxing by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1962
         
-        ## New Contributors
-        * @cpaleop made their first contribution in https://github.com/InsertKoinIO/koin/pull/1756
-        * @suau made their first contribution in https://github.com/InsertKoinIO/koin/pull/1751
         
-        **Full Changelog**: https://github.com/InsertKoinIO/koin/compare/3.5.6...4.0.0-RC1,
-        published_at: "2024-07-25T15:42:03Z",
+        **Full Changelog**: https://github.com/InsertKoinIO/koin/compare/4.0.0-RC1...4.0.0-RC2,
+        published_at: "2024-09-02T11:51:32Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "ktor-3.5.3" }, RepoTag { name: "ktor-3.5.2" }, RepoTag { name: "ktor-3.5.2-RC1" }, RepoTag { name: "ktor-3.5.1" }, RepoTag { name: "ktor-3.5.0" }])
+Ok([RepoTag { name: "4.0.0-RC2" }, RepoTag { name: "4.0.0-RC1" }, RepoTag { name: "3.6.0-wasm-alpha2" }, RepoTag { name: "3.6.0-wasm-alpha1" }, RepoTag { name: "3.6.0-alpha3" }, RepoTag { name: "3.6.0-alpha1" }, RepoTag { name: "3.6.0-Beta5" }, RepoTag { name: "3.6.0-Beta4" }, RepoTag { name: "3.6.0-Beta3" }, RepoTag { name: "3.6.0-Beta2" }, RepoTag { name: "3.5.6" }])
 
 
 Repo { owner: "gmazzo", name: "gradle-buildconfig-plugin", url: "https://github.com/gmazzo/gradle-buildconfig-plugin" }:
@@ -1181,7 +1210,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v5.4.0" }])
+Ok([RepoTag { name: "v5.4.0" }, RepoTag { name: "v5.3.5" }, RepoTag { name: "v5.3.4" }, RepoTag { name: "v5.3.3" }, RepoTag { name: "v5.3.2" }, RepoTag { name: "v5.3.1" }, RepoTag { name: "v5.3.0" }, RepoTag { name: "v5.2.0" }, RepoTag { name: "v5.1.0" }, RepoTag { name: "v5.0.1" }, RepoTag { name: "v5.0.0" }])
 
 
 Repo { owner: "Kotlin", name: "dokka", url: "https://github.com/Kotlin/dokka" }:
@@ -1240,7 +1269,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.9.20" }])
+Ok([RepoTag { name: "v1.9.20" }, RepoTag { name: "v1.9.10" }, RepoTag { name: "v1.9.0" }, RepoTag { name: "v1.8.20" }, RepoTag { name: "v1.8.10" }, RepoTag { name: "v1.7.20" }, RepoTag { name: "v1.7.10" }, RepoTag { name: "v1.7.0" }, RepoTag { name: "v1.6.21" }, RepoTag { name: "v1.6.20" }, RepoTag { name: "v1.6.10" }])
 
 
 Repo { owner: "square", name: "okio", url: "https://github.com/square/okio" }:
@@ -1264,7 +1293,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-ALPHA-35" }])
+Ok([RepoTag { name: "v1.0.0-ALPHA-35" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-34" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-34-kotlin-2.0.20-RC2" }])
 
 
 Repo { owner: "rickclephas", name: "KMM-ViewModel", url: "https://github.com/rickclephas/KMM-ViewModel" }:
@@ -1279,24 +1308,43 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-BETA-5" }])
+Ok([RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-4" }, RepoTag { name: "v1.0.0-BETA-4-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-3" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-RC" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta1" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC" }, RepoTag { name: "v1.0.0-BETA-2" }, RepoTag { name: "v1.0.0-BETA-2-kotlin-2.0.0-RC3" }])
 
 
 Repo { owner: "google", name: "ksp", url: "https://github.com/google/ksp/releases" }:
 Ok(
     RepoRelease {
-        name: "2.0.20-1.0.24",
-        tag_name: "2.0.20-1.0.24",
-        body: ## What's Changed
-        * UPDATE_KOTLIN_VERSION: 2.0.20 by @ting-yuan in https://github.com/google/ksp/pull/2040
-        ,
-        published_at: "2024-08-22T20:30:13Z",
-        target_commitish: "1.0.24-release",
+        name: "2.0.20-1.0.25",
+        tag_name: "2.0.20-1.0.25",
+        body: ## Bugs Fixed
+        Inlined JVM name is not correct #1493
+        [KSP2] NullPointerException when getting name of nested annotation #1963
+        [KSP2] The status was unresolved for FirSimpleFunctionImpl #1938
+        [KSP2] Class values in type annotations get resolved to error type #1933
+        [KSP2] Comparing KSType leads to exception #1918
+        [KSP2] Can't find values in repeatable annotations #1883
+        incremental: aggregating outputs should always be invalidated #2027
+        [KSP2] Not yet implemented: KSValueArgumentLiteImpl.getLocation #2048
+        [KSP2] Not yet implemented: KSValueArgumentImpl.getParent #2049
+        getSymbolsWithAnnotation returns copy function from data class #1996
+        [KSP2] Annotations got use-site target when there are none specified #1882
+        getting null pointer exception #1929
+        [KSP2] Calling getDeclarationsInSourceOrder throws KotlinIllegalStateExceptionWithAttachments #1930
+        [KSP2] A failure occurred while executing com.google.devtools.ksp.gradle.KspAAWorkerAction #1941
+        KSP2: Resolver.getJvmNames doesn't work for inline and internal classes #1640
+        kspCaches don't work together with Gradle build cache #2042
+        
+        ## Contributors
+        Thank you so much! @ansman, @kuanyingchou
+        
+        **Full Changelog**: https://github.com/google/ksp/compare/2.0.20-1.0.24...2.0.20-1.0.25,
+        published_at: "2024-09-05T20:32:26Z",
+        target_commitish: "1.0.25-release",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "test-tag" }, RepoTag { name: "jvg-test" }, RepoTag { name: "2.0.20-RC-1.0.24" }, RepoTag { name: "2.0.20-RC2-1.0.24" }, RepoTag { name: "2.0.20-Beta2-1.0.23" }, RepoTag { name: "2.0.20-Beta1-1.0.22" }, RepoTag { name: "2.0.20-1.0.24" }])
+Ok([RepoTag { name: "2.0.20-1.0.25" }, RepoTag { name: "2.0.20-1.0.24" }, RepoTag { name: "2.0.10-RC-1.0.23" }, RepoTag { name: "2.0.10-RC2-1.0.24" }, RepoTag { name: "2.0.10-1.0.24" }, RepoTag { name: "2.0.0-RC3-1.0.20" }, RepoTag { name: "2.0.0-RC2-1.0.20" }, RepoTag { name: "2.0.0-RC1-1.0.20" }, RepoTag { name: "2.0.0-Beta5-1.0.20" }, RepoTag { name: "2.0.0-Beta5-1.0.19" }, RepoTag { name: "2.0.0-Beta4-1.0.19" }])
 
 
 Repo { owner: "icerockdev", name: "moko-kswift", url: "https://github.com/icerockdev/moko-kswift.git" }:
@@ -1316,7 +1364,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "release/0.7.0" }])
+Ok([RepoTag { name: "release/0.7.0" }, RepoTag { name: "release/0.6.1" }, RepoTag { name: "release/0.6.0" }, RepoTag { name: "release/0.5.0" }, RepoTag { name: "release/0.4.0" }, RepoTag { name: "release/0.3.0" }, RepoTag { name: "release/0.2.0" }, RepoTag { name: "release/0.1.0" }])
 
 
 Repo { owner: "google", name: "desugar_jdk_libs", url: "https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md" }:

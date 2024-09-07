@@ -1,13 +1,12 @@
+use http::{header, HeaderMap};
+use reqwest::{Client, Error, Response, Url};
+use serde::de::DeserializeOwned;
+use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::fmt;
 use std::fmt::{Debug, Formatter};
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
-
-use http::header;
-use reqwest::{Client, Error, Url};
-use serde::de::DeserializeOwned;
-use serde::{Deserialize, Serialize};
 
 mod constant;
 
@@ -66,8 +65,12 @@ fn filter_tag<'a>(
 ) -> Result<&'a [RepoTag], &'a String> {
     let all_tag = all_tag?;
     let index = all_tag.iter().position(|x| x.name == target_tag_name);
-    let max_index = if let Some(index) = index { index } else { 4 };
-    return Ok(&all_tag[0..=max_index]);
+    if let Some(index) = index {
+        let end_index = (index + 10).min(all_tag.len() - 1);
+        Ok(&all_tag[index..=end_index])
+    } else {
+        Ok(&all_tag[0..=4.min(all_tag.len() - 1)])
+    }
 }
 
 async fn get_latest_release(client: &Client, repo: &Repo) -> Result<RepoRelease, String> {
@@ -81,27 +84,96 @@ async fn get_latest_release(client: &Client, repo: &Repo) -> Result<RepoRelease,
 
 async fn get_all_tag(client: &Client, repo: &Repo) -> Result<Vec<RepoTag>, String> {
     let request_url = format!(
-        "https://api.github.com/repos/{owner}/{repo}/tags",
+        "https://api.github.com/repos/{owner}/{repo}/tags?per_page=100",
         owner = repo.owner,
         repo = repo.name
     );
-    return request(client, &request_url).await;
+    get_tag_by_url(client, &request_url).await
+}
+// 
+// async fn get_tag_by_url(client: &Client, request_url: &str) -> Result<Vec<RepoTag>, String> {
+//     let response = client.get(request_url).send().await;
+//     match response {
+//         Ok(response) => {
+//             let next_url = get_next_url(response.headers());
+//             let mut result = parse_response(response, request_url).await;
+//             if result.is_ok() {
+//                 if let Some(url) = next_url {
+//                     Box::pin(get_tag_by_url(client, &url)).await
+//                         .and_then(|mut f| {
+//                             f.append(result.as_mut().unwrap());
+//                             Ok(f)
+//                         })
+//                 } else {
+//                     result
+//                 }
+//             } else {
+//                 result
+//             }
+//         }
+//         Err(e) => Err(format!("{}", e)),
+//     }
+// }
+async fn get_tag_by_url(client: &Client, request_url: &str) -> Result<Vec<RepoTag>, String> {
+    let response = client.get(request_url).send().await.map_err(|e| format!("{}", e))?;
+
+    let next_url = if !request_url.contains("page=4") {
+        get_next_url(response.headers())
+    } else {
+        None
+    };
+    let mut result: Vec<RepoTag> = parse_response(response, request_url).await?;
+    if let Some(url) = next_url {
+        let mut next_tags: Vec<RepoTag> = Box::pin(get_tag_by_url(client, &url)).await?;
+        result.append(&mut next_tags);
+    }
+    Ok(result)
+}
+// fn get_next_url(header_map: &HeaderMap) -> Option<String> {
+//     if let Some(link_header) = header_map.get("Link") {
+//         if let Ok(header_value) = link_header.to_str() {
+//             for link in header_value.split(",") {
+//                 if link.contains("rel=\"next\"") {
+//                     let next_url = &link[link.find("<")? + 1..link.find(">")?];
+//                     return Some(String::from(next_url));
+//                 }
+//             }
+//         }
+//     }
+//     None
+// }
+fn get_next_url(header_map: &HeaderMap) -> Option<String> {
+    header_map.get("Link")
+        .and_then(|link_header| link_header.to_str().ok())
+        .and_then(|header_value| {
+            header_value.split(',')
+                .find(|link| link.contains("rel=\"next\""))
+                .and_then(|link| {
+                    let start = link.find('<')? + 1;
+                    let end = link.find('>')?;
+                    Some(link[start..end].to_string())
+                })
+        })
 }
 
 async fn request<T: DeserializeOwned>(client: &Client, request_url: &String) -> Result<T, String> {
     let response = client.get(request_url).send().await;
-    return match response {
+    match response {
         Ok(response) => {
-            if response.status().is_success() {
-                response.json().await.map_err(|e| format!("{}", e))
-            } else {
-                let text = response.text().await;
-                text.map_err(|e| format!("{}", e))
-                    .and_then(|text| Err(format!("response {text}, for url ({request_url})")))
-            }
+            parse_response(response, request_url).await
         }
         Err(e) => Err(format!("{}", e)),
-    };
+    }
+}
+
+async fn parse_response<T: DeserializeOwned>(response: Response, request_url: &str) -> Result<T, String> {
+    if response.status().is_success() {
+        response.json().await.map_err(|e| format!("{}", e))
+    } else {
+        let text = response.text().await;
+        text.map_err(|e| format!("{}", e))
+            .and_then(|text| Err(format!("response {text}, for url ({request_url})")))
+    }
 }
 
 fn client_builder() -> reqwest::ClientBuilder {
@@ -118,7 +190,7 @@ fn client_builder() -> reqwest::ClientBuilder {
         "Accept",
         header::HeaderValue::from_static("application/vnd.github+json"),
     );
-    return Client::builder().default_headers(headers);
+    Client::builder().default_headers(headers)
 }
 
 fn parse_to_repo(line: Option<&String>) -> Option<Repo> {
@@ -151,11 +223,11 @@ fn parse_to_repo(line: Option<&String>) -> Option<Repo> {
     if name.is_empty() {
         return None;
     }
-    return Some(Repo {
+    Some(Repo {
         owner: owner.to_owned(),
         name: name.to_owned(),
         url: format!("{url}"),
-    });
+    })
 }
 
 fn parse_repo() -> Vec<Repo> {
@@ -166,7 +238,7 @@ fn parse_repo() -> Vec<Repo> {
             .filter_map(|line| parse_to_repo(line.ok().as_ref()))
             .collect();
     }
-    return vec![];
+    vec![]
 }
 
 #[tokio::main]
