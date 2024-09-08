@@ -88,6 +88,7 @@ async fn get_all_tag(client: &Client, repo: &Repo) -> Result<Vec<RepoTag>, Strin
         owner = repo.owner,
         repo = repo.name
     );
+    println!("request_url={:?}", request_url);
     get_tag_by_url(client, &request_url).await
 }
 // 
@@ -195,48 +196,59 @@ fn client_builder() -> reqwest::ClientBuilder {
 
 fn parse_to_repo(line: Option<&String>) -> Option<Repo> {
     let mut line = line?.trim();
-    line = if line.starts_with("//") {
-        &line[2..].trim()
+    // 处理以 "//" 开头的行
+    if line.starts_with("//") {
+        line = &line[2..].trim();
     } else {
-        ""
-    };
-    let url = Url::parse(line).ok()?;
-    match url.host_str() {
-        Some(host) => {
-            if host != "github.com" {
-                return None;
-            }
-        }
-        None => {
-            return None;
-        }
+        return None;
     }
-    // println!("url:{url:?}");
+    // 查找并处理 GitHub URL
+    if let Some(url_index) = line.find("https://github.com") {
+        line = &line[url_index..];
+    } else {
+        return None; // 如果没有 GitHub URL，直接返回 None
+    }
+
+    // 解析 URL
+    let url = Url::parse(line).ok()?;
+
+    // 验证 host 是否为 "github.com"
+    if url.host_str()? != "github.com" {
+        return None;
+    }
+
+    // 获取路径片段
     let mut path_segments = url.path_segments()?;
     let owner = path_segments.next()?;
     let mut name = path_segments.next()?;
-    name = if name.ends_with(".git") {
-        &name[0..(name.len() - 4)]
-    } else {
-        name
-    };
+
+    // 处理 .git 后缀
+    if name.ends_with(".git") {
+        name = &name[..name.len() - 4];
+    }
+
+    // 如果仓库名称为空，返回 None
     if name.is_empty() {
         return None;
     }
+
+    // 返回 Repo 对象
     Some(Repo {
         owner: owner.to_owned(),
         name: name.to_owned(),
-        url: format!("{url}"),
+        url: url.to_string(),
     })
 }
 
 fn parse_repo() -> Vec<Repo> {
     let file = File::open(constant::VERSION_FILE_NAME);
     if let Ok(file) = file {
-        return BufReader::new(file)
+        let mut repo_vec: Vec<Repo> = BufReader::new(file)
             .lines()
             .filter_map(|line| parse_to_repo(line.ok().as_ref()))
             .collect();
+        repo_vec.dedup_by_key(|f| f.url.clone());
+        return repo_vec
     }
     vec![]
 }
