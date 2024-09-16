@@ -888,25 +888,49 @@ Ok([RepoTag { name: "v1.7.2" }, RepoTag { name: "v1.7.1" }, RepoTag { name: "v1.
 Repo { owner: "Kotlin", name: "kotlinx.coroutines", url: "https://github.com/Kotlin/kotlinx.coroutines" }:
 Ok(
     RepoRelease {
-        name: "1.9.0-RC.2",
-        tag_name: "1.9.0-RC.2",
-        body: * Advanced the deprecation levels for `BroadcastChannel`-based API (#4197).
-        * Advanced the deprecation levels for the old `kotlinx-coroutines-test` API (#4198).
-        * Promoted `CoroutineStart.ATOMIC` from `ExperimentalCoroutinesApi` to `DelicateCoroutinesApi` (#4169).
-        * Reworked the documentation for `CoroutineStart` and `Channel`-based API (#4147, #4148, #4167). Thanks, @globsterg!
-        * Forbid casting a `Mutex` to `Semaphore` (#4176).
-        * Deprecated `Job.cancelFutureOnCompletion` (#4156).
-        * Worked around a stack overflow that may occur when calling `asDeferred` on a `Future` many times (#4156).
-        * Fixed a bug that disallowed setting a custom `probeCoroutineResumed` when starting coroutines with `UNDISPATCHED` (#4162).
+        name: "1.9.0",
+        tag_name: "1.9.0",
+        body: ### Features
+        
+        * Wasm/WASI target support (#4064). Thanks, @igoriakovlev!
+        * `limitedParallelism` now optionally accepts the name of the dispatcher view for easier debugging (#4023).
         * No longer initialize `Dispatchers.IO` on the JVM when other standard dispatchers are accessed (#4166). Thanks, @metalhead8816!
+        * Introduced the `Flow<T>.chunked(size: Int): Flow<List<T>>` operator that groups emitted values into groups of the given size (#1290).
+        * Closeable dispatchers are instances of `AutoCloseable` now (#4123).
+        
+        ### Fixes
+        
+        * Calling `hasNext` on a `Channel`'s iterator is idempotent (#4065). Thanks, @gitpaxultek!
+        * `CoroutineScope()` created without an explicit dispatcher uses `Dispatchers.Default` on Native (#4074). Thanks, @whyoleg!
+        * Fixed a bug that prevented non-Android `Dispatchers.Main` from initializing when the Firebase dependency is used (#3914).
+        * Ensured a more intuitive ordering of tasks in `runBlocking` (#4134).
+        * Forbid casting a `Mutex` to `Semaphore` (#4176).
+        * Worked around a stack overflow that may occur when calling `asDeferred` on a `Future` many times (#4156).
+        
+        ### Deprecations and promotions
+        
+        * Advanced the deprecation levels for `BroadcastChannel`-based API (#4197).
+        * Advanced the deprecation levels for the old `kotlinx-coroutines-test` API (#4198).
+        * Deprecated `Job.cancelFutureOnCompletion` (#4173).
+        * Promoted `CoroutineDispatcher.limitedParallelism` to stable (#3864).
+        * Promoted `CoroutineStart.ATOMIC` from `ExperimentalCoroutinesApi` to `DelicateCoroutinesApi` (#4169).
+        * Promoted `CancellableContinuation.resume` with an `onCancellation` lambda to stable, providing extra arguments to the lambda (#4088).
+        * Marked the classes and interfaces that are not supposed to be inherited from with the new `InternalForInheritanceCoroutinesApi` opt-in (#3770).
+        * Marked the classes and interfaces inheriting from which is not stable with the new `ExperimentalForInheritanceCoroutinesApi` opt-in (#3770).
+        
+        ### Other
+        
+        * Kotlin was updated to 2.0 (#4137).
+        * Reworked the documentation for `CoroutineStart` and `Channel`-based API (#4147, #4148, #4167). Thanks, @globsterg!
+        * Simplified the internal implementation of `Job` (#4053).
         * Small tweaks, fixes, and documentation improvements.,
-        published_at: "2024-08-13T11:25:35Z",
+        published_at: "2024-09-13T14:26:20Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "1.9.0-RC.2" }, RepoTag { name: "1.9.0-RC" }, RepoTag { name: "1.8.1" }, RepoTag { name: "1.8.1-Beta" }, RepoTag { name: "1.8.0" }, RepoTag { name: "1.8.0-RC2" }, RepoTag { name: "1.8.0-RC" }, RepoTag { name: "1.7.3" }, RepoTag { name: "1.7.2" }, RepoTag { name: "1.7.1" }, RepoTag { name: "1.7.0" }])
+Ok([RepoTag { name: "1.9.0" }, RepoTag { name: "1.9.0-RC.2" }, RepoTag { name: "1.9.0-RC" }, RepoTag { name: "1.8.1" }, RepoTag { name: "1.8.1-Beta" }, RepoTag { name: "1.8.0" }, RepoTag { name: "1.8.0-RC2" }, RepoTag { name: "1.8.0-RC" }, RepoTag { name: "1.7.3" }, RepoTag { name: "1.7.2" }, RepoTag { name: "1.7.1" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.atomicfu", url: "https://github.com/Kotlin/kotlinx.atomicfu" }:
@@ -932,57 +956,36 @@ Ok([RepoTag { name: "0.25.0" }, RepoTag { name: "0.24.0" }, RepoTag { name: "0.2
 Repo { owner: "ktorio", name: "ktor", url: "https://github.com/ktorio/ktor" }:
 Ok(
     RepoRelease {
-        name: "3.0.0-beta-2",
-        tag_name: "3.0.0-beta-2",
-        body: > Published 15 July 2024
+        name: "3.0.0-rc-1",
+        tag_name: "3.0.0-rc-1",
+        body: > Published 9 September 2024
         
         ### Bugfixes
-        * io.ktor.util.TextKt.chomp doesn't work on strings with more than one character ([KTOR-7209](https://youtrack.jetbrains.com/issue/KTOR-7209))
-        * DefaultRequest plugin overwrites http protocol ([KTOR-5586](https://youtrack.jetbrains.com/issue/KTOR-5586))
-        * Ktor build problem; cannot compile native targets ([KTOR-6666](https://youtrack.jetbrains.com/issue/KTOR-6666))
-        * SSEException is thrown instead of JobCancellationException when coroutine's job is cancelled ([KTOR-6571](https://youtrack.jetbrains.com/issue/KTOR-6571))
-        * SSE request drops request body ([KTOR-6659](https://youtrack.jetbrains.com/issue/KTOR-6659))
-        * SSE: UnsupportedContentTypeException when sending POST request using OKHttp engine ([KTOR-6911](https://youtrack.jetbrains.com/issue/KTOR-6911))
-        * SSE: NoTransformationFoundException when Logging plugin with LogLevel.ALL is used ([KTOR-6912](https://youtrack.jetbrains.com/issue/KTOR-6912))
-        * Installing SSE breaks GET/POST functionality ([KTOR-6614](https://youtrack.jetbrains.com/issue/KTOR-6614))
-        * Cookies with a long Max-Age incorrectly expire in AcceptAllCookiesStorage ([KTOR-6646](https://youtrack.jetbrains.com/issue/KTOR-6646))
-        * Some dependency versions not tracked ([KTOR-7123](https://youtrack.jetbrains.com/issue/KTOR-7123))
-        * CSRF: false positive originMatchesHost validation when default port is explicitly defined ([KTOR-6701](https://youtrack.jetbrains.com/issue/KTOR-6701))
-        * Double Transfer-Encoding header while using respondOutputStream on Tomcat ([KTOR-6574](https://youtrack.jetbrains.com/issue/KTOR-6574))
+        * Bytecode incompatibility in AttributeKey ([KTOR-7334](https://youtrack.jetbrains.com/issue/KTOR-7334))
+        * ContentEncoding: request hangs when using 3.0.0-beta-2 ([KTOR-7265](https://youtrack.jetbrains.com/issue/KTOR-7265))
+        * Revert Routing API changes from `Route` to `Routing` ([KTOR-7238](https://youtrack.jetbrains.com/issue/KTOR-7238))
+        * IOException: startIndex (0) > endIndex (-1) when making concurrent requests via thread pool ([KTOR-7254](https://youtrack.jetbrains.com/issue/KTOR-7254))
+        * ByteReadChannel.copyTo sometimes throws "IllegalArgumentException: Buffer is empty" ([KTOR-7220](https://youtrack.jetbrains.com/issue/KTOR-7220))
+        * Redirect dependencies from ktor-server-test-base ([KTOR-7393](https://youtrack.jetbrains.com/issue/KTOR-7393))
+        * CIO: EmbeddedServer.stop always blocks for shutdownGracePeriod ([KTOR-7360](https://youtrack.jetbrains.com/issue/KTOR-7360))
+        * SSE: the plugin doesn't follow the spec when multiline data is sent ([KTOR-7391](https://youtrack.jetbrains.com/issue/KTOR-7391))
+        * Infinite creation of CancellableContinuationImpl on ByteChannel.flush ([KTOR-7324](https://youtrack.jetbrains.com/issue/KTOR-7324))
         
         ### Improvements
-        * HttpCalValidatorConfig class name is misspelled ([KTOR-6625](https://youtrack.jetbrains.com/issue/KTOR-6625))
-        * CallLogging: package is misspelled ([KTOR-4273](https://youtrack.jetbrains.com/issue/KTOR-4273))
-        * Ambiguous coroutineContext warning in routing handler ([KTOR-5181](https://youtrack.jetbrains.com/issue/KTOR-5181))
-        * Tracing: allow changing log level at runtime for routing ([KTOR-7193](https://youtrack.jetbrains.com/issue/KTOR-7193))
-        * io.ktor.network.tls.TLSException has internal visibility ([KTOR-6767](https://youtrack.jetbrains.com/issue/KTOR-6767))
-        * Auth: Make `refreshToken` of `BearerTokens` class nullable ([KTOR-6928](https://youtrack.jetbrains.com/issue/KTOR-6928))
-        * Ktor test application library references internal module ([KTOR-6668](https://youtrack.jetbrains.com/issue/KTOR-6668))
-        * CSRF: Confusing error message when Origin validation is enabled and only Referrer header is sent ([KTOR-6702](https://youtrack.jetbrains.com/issue/KTOR-6702))
-        * CSRF: validations probably shouldn't be applied to GET/HEAD/OPTIONS requests ([KTOR-6698](https://youtrack.jetbrains.com/issue/KTOR-6698))
-        * CSRF: Empty onFailure option is misleading ([KTOR-6687](https://youtrack.jetbrains.com/issue/KTOR-6687))
-        * Misleading assertion message in the testEmbeddedServerCancellation test ([KTOR-6657](https://youtrack.jetbrains.com/issue/KTOR-6657))
-        * Allow setting "Secure" flag for cookies on localhost ([KTOR-6593](https://youtrack.jetbrains.com/issue/KTOR-6593))
-        * SSE: Unable to access response headers ([KTOR-6660](https://youtrack.jetbrains.com/issue/KTOR-6660))
-        * SSE: Improve support for testing ([KTOR-3290](https://youtrack.jetbrains.com/issue/KTOR-3290))
-        * OAuth handler does not propagate redirection errors to the caller ([KTOR-6605](https://youtrack.jetbrains.com/issue/KTOR-6605))
-        * HttpTimeoutTest.testConnect are flaky ([KTOR-1583](https://youtrack.jetbrains.com/issue/KTOR-1583))
+        * Include relocation notes for old Ktor modules ([KTOR-6826](https://youtrack.jetbrains.com/issue/KTOR-6826))
+        * Deprecate old jetty / tomcat / servlet engines ([KTOR-7315](https://youtrack.jetbrains.com/issue/KTOR-7315))
+        * Backwards compatibility for monitor ([KTOR-7264](https://youtrack.jetbrains.com/issue/KTOR-7264))
+        * ApplicationProperties naming is confusing ([KTOR-7270](https://youtrack.jetbrains.com/issue/KTOR-7270))
         
         ### Features
-        * Migrate to new kotlinx.io library ([KTOR-6030](https://youtrack.jetbrains.com/issue/KTOR-6030))
-        * Change default session serializer to the one that uses kotlinx-serializaion ([KTOR-6175](https://youtrack.jetbrains.com/issue/KTOR-6175))
-        * Replace custom withTimeout implementation using WeakTimeoutQueue with coroutines.withTimeout ([KTOR-3658](https://youtrack.jetbrains.com/issue/KTOR-3658))
-        * Add Url capability: parsing/validating url strings ([KTOR-360](https://youtrack.jetbrains.com/issue/KTOR-360))
-        * SSE: Support handling HTTP failures ([KTOR-6808](https://youtrack.jetbrains.com/issue/KTOR-6808))
-        * Ktor client for Kotlin/Wasm ([KTOR-5587](https://youtrack.jetbrains.com/issue/KTOR-5587))
-        * CSRF protection feature ([KTOR-2910](https://youtrack.jetbrains.com/issue/KTOR-2910)),
-        published_at: "2024-07-16T15:20:54Z",
+        * staticZip: Support watching for changes and reloading of zip files ([KTOR-7243](https://youtrack.jetbrains.com/issue/KTOR-7243)),
+        published_at: "2024-09-10T14:19:40Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "3.0.0-beta-2" }, RepoTag { name: "3.0.0-beta-1" }, RepoTag { name: "2.3.12" }, RepoTag { name: "2.3.11" }, RepoTag { name: "2.3.10" }, RepoTag { name: "2.3.9" }, RepoTag { name: "2.3.8" }, RepoTag { name: "2.3.7" }, RepoTag { name: "2.3.6" }, RepoTag { name: "2.3.5" }, RepoTag { name: "2.3.4" }])
+Ok([RepoTag { name: "3.0.0-rc-1" }, RepoTag { name: "3.0.0-beta-2" }, RepoTag { name: "3.0.0-beta-1" }, RepoTag { name: "2.3.12" }, RepoTag { name: "2.3.11" }, RepoTag { name: "2.3.10" }, RepoTag { name: "2.3.9" }, RepoTag { name: "2.3.8" }, RepoTag { name: "2.3.7" }, RepoTag { name: "2.3.6" }, RepoTag { name: "2.3.5" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx-datetime", url: "https://github.com/Kotlin/kotlinx-datetime" }:
@@ -1407,10 +1410,23 @@ Ok([RepoTag { name: "v1.9.20" }, RepoTag { name: "v1.9.10" }, RepoTag { name: "v
 
 
 Repo { owner: "square", name: "okio", url: "https://github.com/square/okio" }:
-Err(
-    "response {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/releases/releases#get-the-latest-release\",\"status\":\"404\"}, for url (https://api.github.com/repos/square/okio/releases/latest)",
+Ok(
+    RepoRelease {
+        name: "",
+        tag_name: "3.9.1",
+        body: _2024-09-12_
+        
+         * Fix: Support paths containing a single dot (".") in `Path.relativeTo`.
+         * Fix: Do not read from the upstream source when a 0-byte read is requested.
+         * Fix: Update kotlinx.datetime to 0.6.0 to correct a Gradle module metadata problem with 0.5.0.
+           Note: this artifact is only used in 'okio-fakefilesystem' and 'okio-nodefilesystem' and not in the Okio core.,
+        published_at: "2024-09-12T20:01:12Z",
+        target_commitish: "master",
+        draft: false,
+        prerelease: false,
+    },
 )
-Ok([RepoTag { name: "parent-3.9.0" }, RepoTag { name: "parent-3.8.0" }, RepoTag { name: "parent-3.7.0" }, RepoTag { name: "parent-3.6.0" }, RepoTag { name: "parent-3.5.0" }])
+Ok([RepoTag { name: "3.9.1" }, RepoTag { name: "2.4.1" }, RepoTag { name: "2.2.2" }])
 
 
 Repo { owner: "rickclephas", name: "KMP-NativeCoroutines", url: "https://github.com/rickclephas/KMP-NativeCoroutines" }:
