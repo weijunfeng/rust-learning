@@ -829,60 +829,50 @@ Ok([RepoTag { name: "v1.6.11" }, RepoTag { name: "v1.6.10" }, RepoTag { name: "v
 Repo { owner: "Kotlin", name: "kotlinx.serialization", url: "https://github.com/Kotlin/kotlinx.serialization" }:
 Ok(
     RepoRelease {
-        name: "1.7.2",
-        tag_name: "v1.7.2",
-        body: This release provides several new features, including a major Cbor configuration rework.
-        It uses Kotlin 2.0.20 by default. 
+        name: "1.7.3",
+        tag_name: "v1.7.3",
+        body: This release aims to fix important issues that were discovered in the 1.7.2 release,
+        including the inability to sync certain projects into Android Studio/IntelliJ IDEA and exceptions from custom Uuid serializers.
         
-        ## Cbor feature set for COSE compliance
+        It uses Kotlin 2.0.20 by default.
         
-        This change brings a lot of features to the CBOR format, namely:
-        
-        - Serial Labels — see `@CborLabel` annotation and `preferCborLabelsOverNames` flag.
-        - Tagging of keys and values — see `encode*Tags` and `verify*Tags` set of flags
-        - Definite length encoding — see `useDefiniteLengthEncoding`. This flag affects object encoding, since decoding of arrays with definite lenghts is automatically supported.
-        - Option to globally prefer major type 2 for byte array encoding — see `alwaysUseByteString` flag.
-        
-        Since there are quite a lot of flags now, they were restructured to a separate `CborConfiguration` class, similarly to `JsonConfiguration`. It is possible to retrieve this configuration from `CborEncoder/CborDecoder` interfaces in your custom serializers (see their documentation for details).
-        
-        All of these features make it possible to serialize and parse [COSE-compliant CBOR](https://datatracker.ietf.org/doc/html/rfc8152), for example, ISO/IEC 18013-5:2021-compliant mobile driving license data. In case you want to make use of them, there is a predefined `Cbor.CoseCompliant` instance.
-        However, some canonicalization steps (such as sorting keys) still need to be performed manually. 
-        
-        This functionality [was contributed](https://github.com/Kotlin/kotlinx.serialization/pull/2412) to us by [Bernd Prünster](https://github.com/JesusMcCloud) and [Christian](https://github.com/nodh).
-        
-        ## Keeping generated serializers
-        
-        One of the most requested features for serialization plugin was to continue to generate a serializer even if a custom one is specified for the class. It allows using a plugin-generated serializer in a fallback or delegate strategy, accessing type structure via descriptor, using default serialization behavior in inheritors that do not use custom serializers.
-        
-        Starting with this release, you can specify the `@KeepGeneratedSerializer` annotation on the class declaration to instruct the plugin to continue generating the serializer. In this case, the serializer will be accessible using the `.generatedSerializer()` function on the class's companion object.
-        
-        > This annotation is currently experimental. Kotlin 2.0.20 or higher is required for this feature to work.
-        
-        You can check out the examples in [the documentation](docs/serializers.md#simultaneous-use-of-plugin-generated-and-custom-serializers) and in the PRs: [#2758](https://github.com/Kotlin/kotlinx.serialization/pull/2758), [#2669](https://github.com/Kotlin/kotlinx.serialization/pull/2669).
-        
-        ## Serializer for kotlin.uuid.Uuid
-        
-        Kotlin 2.0.20 [added](https://kotlinlang.org/docs/whatsnew2020.html#support-for-uuids-in-the-common-kotlin-standard-library) a common class to represent UUIDs in a multiplatform code. kotlinx.serialization 1.7.2 provides a corresponding `Uuid.serializer()` for it, making it possible to use it in `@Serializable` classes.
-        
-        Note that for now, serializer should be provided manually with [`@Contextual` annotation](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#contextual-serialization). Plugin will be able to automatically insert `Uuid` serializer in Kotlin 2.1.0.
-        
-        See more details in the [corresponding PR](https://github.com/Kotlin/kotlinx.serialization/pull/2744).
-        
-        ## Other bugfixes and improvements
-        
-          * Prohibited using of zero and negative field numbers in ProtoNumber (#2766)
-          * Improve readability of protobuf decoding exception messages (#2768) (thanks to [xiaozhikang0916](https://github.com/xiaozhikang0916))
-          * docs(serializers): Fix grammatical errors (#2779) (thanks to [jamhour1g](https://github.com/jamhour1g))
-          * Fixed VerifyError after ProGuard optimization (#2728)
-          * Add wasm-wasi target to Okio integration (#2727)
-        ,
-        published_at: "2024-08-28T17:45:05Z",
+          * Use explicit kotlin-stdlib and kotlin-test versions from version catalog (#2818)
+          * Drop usage of deprecated Any?.freeze() in K/N target (#2819)
+          * Check against serialName instead of simpleClassName (#2802)
+          * Ignore NoClassDefFoundError when initializing builtins map for serializer() function (#2803)
+          * Clarify example for SerializationException (#2806),
+        published_at: "2024-09-19T15:59:19Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.7.2" }, RepoTag { name: "v1.7.1" }, RepoTag { name: "v1.7.0" }, RepoTag { name: "v1.7.0-RC" }, RepoTag { name: "v1.6.3" }, RepoTag { name: "v1.6.2" }, RepoTag { name: "v1.6.1" }, RepoTag { name: "v1.6.0" }, RepoTag { name: "v1.6.0-RC" }, RepoTag { name: "v1.5.1" }, RepoTag { name: "v1.5.0" }])
+Ok([RepoTag { name: "v1.7.3" }, RepoTag { name: "v1.7.2" }, RepoTag { name: "v1.7.1" }, RepoTag { name: "v1.7.0" }, RepoTag { name: "v1.7.0-RC" }, RepoTag { name: "v1.6.3" }, RepoTag { name: "v1.6.2" }, RepoTag { name: "v1.6.1" }, RepoTag { name: "v1.6.0" }, RepoTag { name: "v1.6.0-RC" }, RepoTag { name: "v1.5.1" }])
+
+
+Repo { owner: "Kotlin", name: "kotlinx-io", url: "https://github.com/Kotlin/kotlinx-io" }:
+Ok(
+    RepoRelease {
+        name: "v0.5.4",
+        tag_name: "0.5.4",
+        body: ### Changes
+        
+        - Extended Unsafe API with a function allowing to iterate over all Buffer's segments [#383](https://github.com/Kotlin/kotlinx-io/pull/383)
+        - Implemented `ByteString` conversion to/from `NSData` on Apple platforms [#384](https://github.com/Kotlin/kotlinx-io/pull/384)
+        - Implemented extensions to read/write `ByteString` from to/from `ByteBuffer`, as well as representing
+          `ByteString` as a read-only `ByteBuffer` on JVM [#387](https://github.com/Kotlin/kotlinx-io/pull/387)
+        - Implemented `ByteString` factory accepting unsigned bytes [#390](https://github.com/Kotlin/kotlinx-io/pull/390)
+        - Reimplemented various functions using Unsafe API [#337](https://github.com/Kotlin/kotlinx-io/pull/337)
+        - Minor documentation improvements
+        
+        Thanks to @qwwdfsad, @JakeWharton, and @joffrey-bion for contributions!,
+        published_at: "2024-09-17T21:56:33Z",
+        target_commitish: "1dae118ca5640a25e62b61f61a380c0b7dfa0617",
+        draft: false,
+        prerelease: false,
+    },
+)
+Ok([RepoTag { name: "0.5.4" }, RepoTag { name: "0.5.3" }, RepoTag { name: "0.5.2" }, RepoTag { name: "0.5.1" }, RepoTag { name: "0.5.0" }, RepoTag { name: "0.4.0" }, RepoTag { name: "0.3.5" }, RepoTag { name: "0.3.4" }, RepoTag { name: "0.3.3" }, RepoTag { name: "0.3.2" }, RepoTag { name: "0.3.1" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.coroutines", url: "https://github.com/Kotlin/kotlinx.coroutines" }:
@@ -1040,16 +1030,16 @@ Ok([RepoTag { name: "1.3.1" }, RepoTag { name: "1.3.0" }, RepoTag { name: "1.2.1
 Repo { owner: "touchlab", name: "SKIE", url: "https://github.com/touchlab/SKIE" }:
 Ok(
     RepoRelease {
-        name: "0.8.4",
-        tag_name: "0.8.4",
-        body: [Change log](https://skie.touchlab.co/changelog/0.8.4),
-        published_at: "2024-08-07T06:42:12Z",
+        name: "0.9.0",
+        tag_name: "0.9.0",
+        body: [Change log](https://skie.touchlab.co/changelog/0.9.0),
+        published_at: "2024-09-25T17:32:38Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "0.8.4" }, RepoTag { name: "0.8.3" }, RepoTag { name: "0.8.2" }, RepoTag { name: "0.8.1" }, RepoTag { name: "0.8.0" }, RepoTag { name: "0.7.2" }, RepoTag { name: "0.7.2-preview.2.0.0-RC3" }, RepoTag { name: "0.7.1" }, RepoTag { name: "0.7.1-preview.2.0.0-RC3" }, RepoTag { name: "0.7.0" }, RepoTag { name: "0.7.0-preview.2.0.0-RC3" }])
+Ok([RepoTag { name: "0.9.0" }, RepoTag { name: "0.9.0-RC.5" }, RepoTag { name: "0.9.0-RC.4" }, RepoTag { name: "0.9.0-RC.3" }, RepoTag { name: "0.9.0-RC.2" }, RepoTag { name: "0.9.0-RC.1" }, RepoTag { name: "0.8.4" }, RepoTag { name: "0.8.3" }, RepoTag { name: "0.8.2" }, RepoTag { name: "0.8.1" }, RepoTag { name: "0.8.0" }])
 
 
 Repo { owner: "touchlab", name: "KMMBridge", url: "https://github.com/touchlab/KMMBridge" }:
@@ -1235,9 +1225,25 @@ Ok([RepoTag { name: "v1.2.0" }, RepoTag { name: "v1.1.1" }, RepoTag { name: "v1.
 Repo { owner: "InsertKoinIO", name: "koin", url: "https://github.com/InsertKoinIO/koin" }:
 Ok(
     RepoRelease {
-        name: "4.0.0-RC2",
-        tag_name: "4.0.0-RC2",
+        name: "4.0.0",
+        tag_name: "4.0.0",
         body: ## What's Changed
+        * Add Lazy<Module> concrete implementation & missing "plus" operator by @cpaleop in https://github.com/InsertKoinIO/koin/pull/1756
+        * flatten: use loop and ArrayDeque instead of recursion by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1801
+        * 3.6 - full upgrade environment by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1839
+        * Add watchos support by @suau in https://github.com/InsertKoinIO/koin/pull/1751
+        * fix(flatten): use `LinkedHashSet` instead of `HashSet` by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1841
+        * Fix CI: update `examples/gradle/versions.gradle` kotlin to 1.9.23 by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1846
+        * update quickstart hyperlink for KMP by @wiryadev in https://github.com/InsertKoinIO/koin/pull/1852
+        * koin-compose: use rememberUpdatedState with ParametersDefinition, optimized KoinApplication, KoinContext, KoinIsolatedContext by @hoc081098 in https://github.com/InsertKoinIO/koin/pull/1768
+        * Checkmodules deprecation by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1867
+        * makes lazy modules & extension engine stable by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1868
+        * 3.6.0 compose viewmodel - KMP by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1875
+        * Instance Factory isolation fix by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1905
+        * Module Mapping isolation fix  by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1915
+        * [maintenance] androidContext readability by @GrzegorzBobryk in https://github.com/InsertKoinIO/koin/pull/1655
+        * [maintenance] toLowerCase deprecation by @GrzegorzBobryk in https://github.com/InsertKoinIO/koin/pull/1653
+        * Multiplatform ViewModel API by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1924
         * update `rememberKoinModules` usage sample by @wiryadev in https://github.com/InsertKoinIO/koin/pull/1856
         * Split VM / Nav API - Retrograde to composeNavigation = "2.8.0-alpha02" by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1953
         * Restoring CheckModules as deprecated code by @pedrofsn in https://github.com/InsertKoinIO/koin/pull/1939
@@ -1245,109 +1251,82 @@ Ok(
         * [Breaking] KoinApplication reworked to start/stop on Compose cycle by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1960
         * Retained scope id fix by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1961
         * Fix CMP NavBackStack argument unboxing by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1962
+        * Catch Koin injection error only - Fix #1932 by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1970
+        * update stately fix - fix #1887 by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1971
+        * Clean up and optimise core internals core by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1972
+        * [Experimental] Koin fu dsl - proposal for function oriented DSL  by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1973
+        * fix scope compose regression #1900 #1844 #1557 by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1975
+        * Add RequestScope UUID to avoid collision over local hashcode by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1976
+        * Verify API - allow declare parameter injection type to be verified by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1977
+        * Revert KoinApplication to be more compose natural style by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1981
+        * add onKoinStartup function to help start with AndroidX startup by @arnaudgiuliani in https://github.com/InsertKoinIO/koin/pull/1984
+        * Fix formatting issue by @SarahDelCastillo in https://github.com/InsertKoinIO/koin/pull/1980
+        * Update kotlin.md by @brianbritto in https://github.com/InsertKoinIO/koin/pull/1958
+        * fix: subsequent instrumented tests failing by @wagarcdev in https://github.com/InsertKoinIO/koin/pull/1957
+        * Fix a small typo by @yuk1ty in https://github.com/InsertKoinIO/koin/pull/1920
+        * docs: Fix typo in android.md by @FireLord in https://github.com/InsertKoinIO/koin/pull/1917
+        * Update koin.md - Added missing project koin-test-junit4 to BOM by @jpicklyk in https://github.com/InsertKoinIO/koin/pull/1914
+        * Add testing description for Context Isolation by @igorwojda in https://github.com/InsertKoinIO/koin/pull/1909
+        * update ScopeAlreadyCreatedException.kt by @JunJaBoy in https://github.com/InsertKoinIO/koin/pull/1912
+        * Use explicit Gradle DependencyHandlerEnvorderPlatform by @dragetd in https://github.com/InsertKoinIO/koin/pull/1865
+        * Update kmp.md by @GabrielBrasileiro in https://github.com/InsertKoinIO/koin/pull/1916
         
+        ## New Contributors
+        * @cpaleop made their first contribution in https://github.com/InsertKoinIO/koin/pull/1756
+        * @suau made their first contribution in https://github.com/InsertKoinIO/koin/pull/1751
+        * @SarahDelCastillo made their first contribution in https://github.com/InsertKoinIO/koin/pull/1980
+        * @brianbritto made their first contribution in https://github.com/InsertKoinIO/koin/pull/1958
+        * @wagarcdev made their first contribution in https://github.com/InsertKoinIO/koin/pull/1957
+        * @yuk1ty made their first contribution in https://github.com/InsertKoinIO/koin/pull/1920
+        * @FireLord made their first contribution in https://github.com/InsertKoinIO/koin/pull/1917
+        * @jpicklyk made their first contribution in https://github.com/InsertKoinIO/koin/pull/1914
+        * @dragetd made their first contribution in https://github.com/InsertKoinIO/koin/pull/1865
         
-        **Full Changelog**: https://github.com/InsertKoinIO/koin/compare/4.0.0-RC1...4.0.0-RC2,
-        published_at: "2024-09-02T11:51:32Z",
+        **Full Changelog**: https://github.com/InsertKoinIO/koin/compare/3.5.6...4.0.0,
+        published_at: "2024-09-17T10:55:10Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "4.0.0-RC2" }, RepoTag { name: "4.0.0-RC1" }, RepoTag { name: "3.6.0-wasm-alpha2" }, RepoTag { name: "3.6.0-wasm-alpha1" }, RepoTag { name: "3.6.0-alpha3" }, RepoTag { name: "3.6.0-alpha1" }, RepoTag { name: "3.6.0-Beta5" }, RepoTag { name: "3.6.0-Beta4" }, RepoTag { name: "3.6.0-Beta3" }, RepoTag { name: "3.6.0-Beta2" }, RepoTag { name: "3.5.6" }])
+Ok([RepoTag { name: "4.0.0" }, RepoTag { name: "4.0.0-RC2" }, RepoTag { name: "4.0.0-RC1" }, RepoTag { name: "3.6.0-wasm-alpha2" }, RepoTag { name: "3.6.0-wasm-alpha1" }, RepoTag { name: "3.6.0-alpha3" }, RepoTag { name: "3.6.0-alpha1" }, RepoTag { name: "3.6.0-Beta5" }, RepoTag { name: "3.6.0-Beta4" }, RepoTag { name: "3.6.0-Beta3" }, RepoTag { name: "3.6.0-Beta2" }])
 
 
 Repo { owner: "gmazzo", name: "gradle-buildconfig-plugin", url: "https://github.com/gmazzo/gradle-buildconfig-plugin" }:
 Ok(
     RepoRelease {
-        name: "v5.4.0",
-        tag_name: "v5.4.0",
+        name: "v5.5.0",
+        tag_name: "v5.5.0",
         body: <!-- Release notes generated using configuration in .github/release.yml at main -->
         
         ## What's Changed
         ### Features
-        * Migrated to `gradle/actions/setup-gradle@v3` by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/132
-        * Added `actionlint` to validate workflows by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/133
-        * Fixed coverage by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/136
-        * Added `GRADLE_ENCRYPTION_KEY` to the build by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/138
-        * Dropping Kotlin 1.7 support and adding min Gradle version check by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/145
-        * Replaced JUnit report action by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/151
-        * Fixed Java identifier conversion for default group when it has numbers by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/162
+        * Removed plugin self reference for tests 🤦 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/164
+        * Added support for customizing generated output by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/181
         ### Dependencies
-        * Bump com.github.gmazzo.buildconfig from 5.3.3 to 5.3.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/126
-        * Bump io.github.gmazzo.publications.report from 1.2.4 to 1.2.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/127
-        * Bump com.squareup:kotlinpoet from 1.15.3 to 1.16.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/128
-        * Bump com.android.application from 8.2.1 to 8.2.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/129
-        * Update Gradle Wrapper from 8.5 to 8.6 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/134
-        * Bump codecov/codecov-action from 3 to 4 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/135
-        * Bump com.android.application from 8.2.2 to 8.3.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/139
-        * Bump io.mockk:mockk from 1.13.9 to 1.13.10 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/140
-        * Bump io.github.gmazzo.publications.report from 1.2.5 to 1.2.7 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/142
-        * Bump kotlin from 1.9.22 to 1.9.23 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/141
-        * Bump com.android.application from 8.3.0 to 8.3.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/143
-        * Update Gradle Wrapper from 8.6 to 8.7 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/144
-        * Bump io.github.gmazzo.publications.report from 1.2.7 to 1.2.8 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/147
-        * Bump com.android.application from 8.3.1 to 8.3.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/148
-        * Bump com.android.application from 8.3.2 to 8.4.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/150
-        * Bump kotlin from 1.9.23 to 1.9.24 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/152
-        * Bump io.mockk:mockk from 1.13.10 to 1.13.11 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/154
-        * Bump com.android.application from 8.4.0 to 8.4.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/153
-        * Bump com.squareup:kotlinpoet from 1.16.0 to 1.17.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/156
-        * Bump kotlin from 1.9.24 to 2.0.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/155
-        * Update Gradle Wrapper from 8.7 to 8.8 by @github-actions in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/158
-        * Bump com.android.application from 8.4.1 to 8.4.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/159
-        * Bump com.android.application from 8.4.2 to 8.5.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/160
-        * Bump com.squareup:kotlinpoet from 1.17.0 to 1.18.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/161
+        * Update Gradle Wrapper from 8.8 to 8.9 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/165
+        * Bump io.mockk:mockk from 1.13.11 to 1.13.12 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/167
+        * Bump com.android.application from 8.5.0 to 8.5.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/168
+        * Bump com.squareup:kotlinpoet from 1.18.0 to 1.18.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/166
+        * Bump kotlin from 2.0.0 to 2.0.10 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/170
+        * Bump com.android.application from 8.5.1 to 8.5.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/171
+        * Update Gradle Wrapper from 8.9 to 8.10 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/172
+        * Bump kotlin from 2.0.10 to 2.0.20 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/173
+        * Bump com.gradle.plugin-publish from 1.2.1 to 1.2.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/174
+        * Bump com.android.application from 8.5.2 to 8.6.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/175
+        * Update Gradle Wrapper from 8.10 to 8.10.1 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/176
+        * Bump gradle-update/update-gradle-wrapper-action from 1 to 2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/180
+        * Bump com.gradle.plugin-publish from 1.2.2 to 1.3.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/179
         
         
-        **Full Changelog**: https://github.com/gmazzo/gradle-buildconfig-plugin/compare/v5.3.5...v5.3.6
-        
-        <!-- Release notes generated using configuration in .github/release.yml at main -->
-        
-        ## What's Changed
-        ### Features
-        * Migrated to `gradle/actions/setup-gradle@v3` by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/132
-        * Added `actionlint` to validate workflows by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/133
-        * Fixed coverage by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/136
-        * Added `GRADLE_ENCRYPTION_KEY` to the build by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/138
-        * Dropping Kotlin 1.7 support and adding min Gradle version check by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/145
-        * Replaced JUnit report action by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/151
-        * Fixed Java identifier conversion for default group when it has numbers by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/162
-        ### Dependencies
-        * Bump com.github.gmazzo.buildconfig from 5.3.3 to 5.3.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/126
-        * Bump io.github.gmazzo.publications.report from 1.2.4 to 1.2.5 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/127
-        * Bump com.squareup:kotlinpoet from 1.15.3 to 1.16.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/128
-        * Bump com.android.application from 8.2.1 to 8.2.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/129
-        * Update Gradle Wrapper from 8.5 to 8.6 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/134
-        * Bump codecov/codecov-action from 3 to 4 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/135
-        * Bump com.android.application from 8.2.2 to 8.3.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/139
-        * Bump io.mockk:mockk from 1.13.9 to 1.13.10 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/140
-        * Bump io.github.gmazzo.publications.report from 1.2.5 to 1.2.7 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/142
-        * Bump kotlin from 1.9.22 to 1.9.23 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/141
-        * Bump com.android.application from 8.3.0 to 8.3.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/143
-        * Update Gradle Wrapper from 8.6 to 8.7 by @gmazzo in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/144
-        * Bump io.github.gmazzo.publications.report from 1.2.7 to 1.2.8 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/147
-        * Bump com.android.application from 8.3.1 to 8.3.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/148
-        * Bump com.android.application from 8.3.2 to 8.4.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/150
-        * Bump kotlin from 1.9.23 to 1.9.24 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/152
-        * Bump io.mockk:mockk from 1.13.10 to 1.13.11 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/154
-        * Bump com.android.application from 8.4.0 to 8.4.1 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/153
-        * Bump com.squareup:kotlinpoet from 1.16.0 to 1.17.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/156
-        * Bump kotlin from 1.9.24 to 2.0.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/155
-        * Update Gradle Wrapper from 8.7 to 8.8 by @github-actions in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/158
-        * Bump com.android.application from 8.4.1 to 8.4.2 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/159
-        * Bump com.android.application from 8.4.2 to 8.5.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/160
-        * Bump com.squareup:kotlinpoet from 1.17.0 to 1.18.0 by @dependabot in https://github.com/gmazzo/gradle-buildconfig-plugin/pull/161
-        
-        
-        **Full Changelog**: https://github.com/gmazzo/gradle-buildconfig-plugin/compare/v5.3.5...v5.4.0,
-        published_at: "2024-07-09T09:30:38Z",
+        **Full Changelog**: https://github.com/gmazzo/gradle-buildconfig-plugin/compare/v5.4.0...v5.5.0,
+        published_at: "2024-09-17T13:05:57Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v5.4.0" }, RepoTag { name: "v5.3.5" }, RepoTag { name: "v5.3.4" }, RepoTag { name: "v5.3.3" }, RepoTag { name: "v5.3.2" }, RepoTag { name: "v5.3.1" }, RepoTag { name: "v5.3.0" }, RepoTag { name: "v5.2.0" }, RepoTag { name: "v5.1.0" }, RepoTag { name: "v5.0.1" }, RepoTag { name: "v5.0.0" }])
+Ok([RepoTag { name: "v5.5.0" }, RepoTag { name: "v5.4.0" }, RepoTag { name: "v5.3.5" }, RepoTag { name: "v5.3.4" }, RepoTag { name: "v5.3.3" }, RepoTag { name: "v5.3.2" }, RepoTag { name: "v5.3.1" }, RepoTag { name: "v5.3.0" }, RepoTag { name: "v5.2.0" }, RepoTag { name: "v5.1.0" }, RepoTag { name: "v5.0.1" }])
 
 
 Repo { owner: "Kotlin", name: "dokka", url: "https://github.com/Kotlin/dokka" }:
@@ -1432,33 +1411,38 @@ Ok([RepoTag { name: "3.9.1" }, RepoTag { name: "2.4.1" }, RepoTag { name: "2.2.2
 Repo { owner: "rickclephas", name: "KMP-NativeCoroutines", url: "https://github.com/rickclephas/KMP-NativeCoroutines" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-ALPHA-35",
-        tag_name: "v1.0.0-ALPHA-35",
-        body: ### Kotlin 
+        name: "v1.0.0-ALPHA-36",
+        tag_name: "v1.0.0-ALPHA-36",
+        body: ### Kotlin
         
-        * Updated Kotlin to 2.0.20,
-        published_at: "2024-08-26T20:24:35Z",
+        * Updated KSP to 1.0.25
+        * Updated `kotlinx.coroutines` to 1.9.0
+        
+        ### IDE plugin
+        
+        * Added support for K2 mode,
+        published_at: "2024-09-24T17:51:15Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-ALPHA-35" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-34" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-34-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-34-kotlin-2.0.20-RC2" }])
+Ok([RepoTag { name: "v1.0.0-ALPHA-36" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-36-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-ALPHA-36-idea-2024.3-EAP-16718.32" }, RepoTag { name: "v1.0.0-ALPHA-35" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-combine" }])
 
 
 Repo { owner: "rickclephas", name: "KMM-ViewModel", url: "https://github.com/rickclephas/KMM-ViewModel" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-BETA-5",
-        tag_name: "v1.0.0-BETA-5",
-        body: * Updated Kotlin to 2.0.20,
-        published_at: "2024-08-27T16:55:51Z",
+        name: "v1.0.0-BETA-6",
+        tag_name: "v1.0.0-BETA-6",
+        body: * Updated `kotlinx.coroutines` to 1.9.0,
+        published_at: "2024-09-25T19:45:21Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-4" }, RepoTag { name: "v1.0.0-BETA-4-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-3" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-RC" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta1" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC" }, RepoTag { name: "v1.0.0-BETA-2" }, RepoTag { name: "v1.0.0-BETA-2-kotlin-2.0.0-RC3" }])
+Ok([RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-4" }, RepoTag { name: "v1.0.0-BETA-4-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-3" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-RC" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta1" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC" }])
 
 
 Repo { owner: "rickclephas", name: "NSExceptionKt", url: "https://github.com/rickclephas/NSExceptionKt" }:
@@ -1473,7 +1457,7 @@ Ok(
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-BETA-7" }, RepoTag { name: "v1.0.0-BETA-7-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-7-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-6-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-6-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-5-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-5-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-5-kotlin-2.0.20-RC" }])
+Ok([RepoTag { name: "v1.0.0-BETA-7" }, RepoTag { name: "v1.0.0-BETA-7-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-7-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-7-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-6-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-6-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-5-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-5-spm-bugsnag" }])
 
 
 Repo { owner: "rickclephas", name: "NSErrorKt", url: "https://github.com/rickclephas/NSErrorKt" }:
