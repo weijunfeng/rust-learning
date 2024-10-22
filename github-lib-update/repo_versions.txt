@@ -75,57 +75,183 @@ Ok([RepoTag { name: "v3.2.1" }, RepoTag { name: "v3.2" }, RepoTag { name: "v3.1"
 Repo { owner: "JetBrains", name: "compose-multiplatform", url: "https://github.com/JetBrains/compose-multiplatform" }:
 Ok(
     RepoRelease {
-        name: "1.6.11",
-        tag_name: "v1.6.11",
-        body: _Changes since 1.6.10_
+        name: "1.7.0",
+        tag_name: "v1.7.0",
+        body: _Changes since 1.6.11_
+        
+        ## Highlights
+        
+        ## Resources
+        
+        - [Compose Multiplatform resources are stored in the android assets now. This fixes Android Studio Preview and cases such as a rendering resource files in WebViews or Media Players](https://github.com/JetBrains/compose-multiplatform/pull/4965)
+        
+        ### Navigation
+        
+        - [Shared Element Transitions](https://developer.android.com/develop/ui/compose/animation/shared-elements)
+        - [Safe Args in Navigation Compose](https://developer.android.com/guide/navigation/design/type-safety)
+        
+        ### Web
+        
+        - [`skiko.js` is redundant in case of K/Wasm Compose Multiplatform for web applications and it can be removed from index.html files to not load redundant files](https://github.com/JetBrains/compose-multiplatform/pull/5134). `skiko.js` will be removed from the k/wasm distribution in the future releases. `skiko.js` is still needed in case of K/JS Compose Multiplatform for web apps
+        
+        ## Breaking changes
+        
+        ### iOS
+        
+        - [`UIKitView` and `UIKitViewController` in `package androidx.compose.ui.interop` are deprecated](https://github.com/JetBrains/compose-multiplatform-core/pull/1494). New API are mentioned in deprecation message. Deprecated invocations should work fine unless custom `onResize` is used, it is disallowed now and will print a warning.
+        - [Actual of expected `InteropView` on iOS is `UIResponder` now instead of `UIView`](https://github.com/JetBrains/compose-multiplatform-core/pull/1489). It's the first common ancestor for `UIViewController` and `UIView`, both of which can be integrated using iOS interop APIs
+        - [The app will crash by default, if `CADisableMinimumFrameDurationOnPhone` is not set to true in `Info.plist`](https://github.com/JetBrains/compose-multiplatform-core/pull/1451). Use newly added `ComposeUIViewControllerConfiguration.enforceStrictPlistSanityCheck` to opt-out of this behavior
+        
+        ### Desktop
+        
+        - [`Modifier.onExternalDrag` has been deprecated in favor of the new `Modifier.dragAndDropTarget`](https://github.com/JetBrains/compose-multiplatform-core/pull/1528)
+        
+        ### Android
+        
+        - [Minimal supported AGP raised to 8.1.0](https://github.com/JetBrains/compose-multiplatform/pull/4840)
+        
+        ### Resources
+        
+        - [Deprecate resources in `compose.ui` in favour of the new resource library](https://github.com/JetBrains/compose-multiplatform-core/pull/1457)
+        
+        ## Features
+        
+        ### Multiple Platforms
+        - [The `clickable` modifier now responds to NumPadEnter and Spacebar, too, in addition to Enter](https://github.com/JetBrains/compose-multiplatform-core/pull/1464)
+        - [`LocalLifecycleOwner` moved from Compose UI to `lifecycle-runtime-compose` so that its Compose-based helper APIs can be used outside of Compose UI](https://github.com/JetBrains/compose-multiplatform-core/pull/1449)
+        - [Skia is updated to m126](https://github.com/JetBrains/compose-multiplatform-core/pull/1486)
+        - [Commonized `org.jetbrains.compose.material3:material3-window-size-class` module](https://github.com/JetBrains/compose-multiplatform-core/pull/1466)
+        - [Commonized `org.jetbrains.compose.material3.adaptive:adaptive*` modules](https://github.com/JetBrains/compose-multiplatform-core/pull/1468)
+        - [New multiplatform module "material-navigation" (in beta status)](https://github.com/JetBrains/compose-multiplatform-core/pull/1504)
+        - [`material3-adaptive-navigation-suite` is multiplatform now](https://github.com/JetBrains/compose-multiplatform-core/pull/1539)
+        - [Support Kotlin 1.9.25](https://github.com/JetBrains/compose-multiplatform/pull/5141)
+        
+        ### iOS
+        
+        - [Initial iOS floating cursor support](https://github.com/JetBrains/compose-multiplatform-core/pull/1312)
+        - [Added `accessibilityEnabled: Boolean = true` argument to `UIKitView` and `UIKitViewController`](https://github.com/JetBrains/compose-multiplatform-core/pull/1350)
+        - [`preferredStatusBarStyle`, `preferredStatysBarAnimation` and `prefersStatusBarHidden` are added to `ComposeUIViewControllerDelegate` to allow status bar appearance modification](https://github.com/JetBrains/compose-multiplatform-core/pull/1378)
+        - [Improvements in touches processing to detect if touches were meant to be delivered to interop views, or should be processed by Compose](https://github.com/JetBrains/compose-multiplatform-core/pull/1440)
+        - [New `UIKitView` and `UIKitViewController` API in `package androidx.compose.ui.viewinterop`](https://github.com/JetBrains/compose-multiplatform-core/pull/1494). Support of `onReset` to reuse the interop composable emitted node and avoid excessive native views reallocations, fine-grain touches strategy control (cooperative with explicit time delay, non-cooperative where no touches are received by Compose, ignoring touches)
+        - [Basic support for `BasicTextField(TextFieldState, ...)` on iOS](https://github.com/JetBrains/compose-multiplatform-core/pull/1540)
+        
+        ### Desktop
+        
+        - [Add constructor with `RenderSettings` to `ComposePanel`. Added a class `RenderSettings` with  `val isVsyncEnabled: Boolean?`. When set to `true` gives a hint to renderer implementation of the particular `ComposePanel` to reduce the latency between the input and visual changes in exchange for possible screen tearing](https://github.com/JetBrains/compose-multiplatform-core/pull/1377)
+        - [Add public `moveEnabled` and `positionPercentage` setters in `SplitPaneState`](https://github.com/JetBrains/compose-multiplatform/pull/3974)
+        - [Implemented Drag-and-Drop from AOSP: `Modifier.dragAndDropSource` and `Modifier.dragAndDropTarget`](https://github.com/JetBrains/compose-multiplatform-core/pull/1433)
+        - [Added support for input methods (languages such as Chinese, Korean, Arabic) to BasicTextField(TextFieldState, ...)](https://github.com/JetBrains/compose-multiplatform-core/pull/1496)
+        - [Add dynamic Drag&Drop target indication](https://github.com/JetBrains/compose-multiplatform-core/pull/1510) (🚫 icon under cursor if currently there is no valid drop target under it)
+        - [The thickness of border resizers in undecorated windows and dialogs can now be controlled by passing a new `decoration` argument](https://github.com/JetBrains/compose-multiplatform-core/pull/1505)
+        
+        ### Resources
+        
+        - [Speed resources web rendering up by the reading a cached value instantly](https://github.com/JetBrains/compose-multiplatform/pull/4893)
+        - [If there is no resource with suitable density, use resource with the most suitable density, otherwise use default (similar to the Android logic)](https://github.com/JetBrains/compose-multiplatform/pull/4969)
+        - [Add a customization for resources directories. Now it is possible to use e.g downloaded resources](https://github.com/JetBrains/compose-multiplatform/pull/5016)
+        - [Now the gradle plugin generates resources map to find a resource by a string ID](https://github.com/JetBrains/compose-multiplatform/pull/5068)
+        - [To avoid constant reading raw font bytes on each Font usage on non-android targets, there was added the font cache. Android has own font cache inside the platform implementation](https://github.com/JetBrains/compose-multiplatform/pull/5109)
+        - [Added utility functions to decode `Bitmap ByteArray as ImageVector` and `XML ByteArray as ImageVector` in the common code and `SVG ByteArray as Painter` in the non-android code](https://github.com/JetBrains/compose-multiplatform/pull/5098)
+        - [Added support of test resources in Compose Multiplatform projects](https://github.com/JetBrains/compose-multiplatform/pull/5122)
+        - [Added support of multi-module resources in JVM-only projects](https://github.com/JetBrains/compose-multiplatform/pull/5122)
+        
+        ### Gradle Plugin
+        
+        - [New `compose.material3AdaptiveNavigationSuite` shortcut in the gradle plugin](https://github.com/JetBrains/compose-multiplatform/pull/5133)
         
         ## Fixes
         
         ### Multiple Platforms
         
-        - [Fix endless re-layout when layout is invalidated by measure, which includes measuring `TextField(singleLine=true)` with `IntrinsicSize`](https://github.com/JetBrains/compose-multiplatform-core/pull/1355)
-        - [Fix container size for `Dialog` centering inside `ImageComposeScene`](https://github.com/JetBrains/compose-multiplatform-core/pull/1375)
+        - [Fix "ComposePanel. Focus moves to child after focusing/unfocusing the main window"](https://github.com/JetBrains/compose-multiplatform-core/pull/1398)
+        - [Don't show code completion for non-existenst API in `commonMain` that fails on Android with `NoSuchMethodException`](https://github.com/JetBrains/compose-multiplatform-core/pull/1328)
+        - [Fix order of interop elements in some cases](https://github.com/JetBrains/compose-multiplatform-core/pull/1340)
+        - [Fixed `Popup` jerking during ripple effect animation](https://github.com/JetBrains/compose-multiplatform-core/pull/1385)
+        - [Fix applying `ShaderBrush` to part of `AnnotatedString`](https://github.com/JetBrains/compose-multiplatform-core/pull/1389)
+        - [Fix text `brush` animation and optimized updating some visual text properties (applying time is reduced up to 40%)](https://github.com/JetBrains/compose-multiplatform-core/pull/1395)
+        - [Fix initial cursor position in the empty `TextField` with explicitly set `TextAlignment`](https://github.com/JetBrains/compose-multiplatform-core/pull/1354)
+        - [Fix focus for editable `TextField` inside `ExposedDropdownMenuBox`](https://github.com/JetBrains/compose-multiplatform-core/pull/1423)
+        - [Fix changing `FontRenderingSettings` is not reflected until composition restarts](https://github.com/JetBrains/compose-multiplatform-core/pull/1595)
         
         ### iOS
         
-        - [Fix crash on iOS 12 caused by usage unavailable `UIMenuController` API](https://github.com/JetBrains/compose-multiplatform-core/pull/1361)
+        - [Pressing directional keys on a physical keyboard connected to iOS device doesn't cause a crash](https://github.com/JetBrains/compose-multiplatform-core/pull/1383)
+        - [Dismissing popup or dialogue within a very short timespan after its creation doesn't cause a crash](https://github.com/JetBrains/compose-multiplatform-core/pull/1384)
+        - [Fix missing invalidations during native view resize](https://github.com/JetBrains/compose-multiplatform-core/pull/1387)
+        - [Fixed a memory spike when continuously resizing the `ComposeUIViewController` (such as when used in modal sheet presentation context with different detents)](https://github.com/JetBrains/compose-multiplatform-core/pull/1390)
+        - [visibility of selection handles in single-line textfields with LTR + RTL text in iOS](https://github.com/JetBrains/compose-multiplatform-core/pull/1331)
+        - [Interop views are now correctly clipped when their measured clipped and unclipped bounding boxes don't match](https://github.com/JetBrains/compose-multiplatform-core/pull/1430)
+        - [Touches inside interop views are not exclusive to them and are processed on Compose side as well.](https://github.com/JetBrains/compose-multiplatform-core/pull/1426)
+        - [Fix `material3.ModalBottomSheet` safe area usage](https://github.com/JetBrains/compose-multiplatform-core/pull/1438)
+        - [Fix hiding interop element during quick scroll](https://github.com/JetBrains/compose-multiplatform-core/pull/1425)
+        - [Fixed the keyboard appearing when selecting from SelectionContainer](https://github.com/JetBrains/compose-multiplatform-core/pull/1448)
+        - [Fix status bar padding on iPad devices](https://github.com/JetBrains/compose-multiplatform-core/pull/1442)
+        - [VoiceOver doesn't allow to perform a11y actions (scrolling, activate, customActions) when disabled() semantics is present in affected element](https://github.com/JetBrains/compose-multiplatform-core/pull/1446)
+        - [Fix frame drops when dragging scrollable content on iOS](https://github.com/JetBrains/compose-multiplatform-core/pull/1503)
+        - [A new approach to implementation of `platformLayers`.](https://github.com/JetBrains/compose-multiplatform-core/pull/1515) Now extra layers (such as Dialogs and Popups) drawing is merged into a single screen size canvas. No jittering and crashes should happen with those anymore.
+        - [`Dialog`s and `Popup`s now have their insets calculated correctly even when the frame of `ComposeUIViewController` spawning them doesn't intersect any safe areas](https://github.com/JetBrains/compose-multiplatform-core/pull/1515)
+        - [Fix offset issues with keyboard and `TextField`](https://github.com/JetBrains/compose-multiplatform-core/pull/1523)
+        - [Fix "Incorrect `imePadding` and high cpu usage when repeatedly opening and closing `Keyboard` on iOS"](https://github.com/JetBrains/compose-multiplatform-core/pull/1523)
+        - [Fix "Selection handlers in wrong positions in a fullscreen TextField"](https://github.com/JetBrains/compose-multiplatform-core/pull/1523)
+        - [Fix keyboard closing while scrolling content with Text Fields](https://github.com/JetBrains/compose-multiplatform-core/pull/1558)
+        - [Fix "UriHandler.openUri no longer works on iOS 18"](https://github.com/JetBrains/compose-multiplatform-core/pull/1595)
         
         ### Desktop
         
-        - [Fix `DropdownMenu`/`Popup` positioning when a window is moved to a screen with a different density](https://github.com/JetBrains/compose-multiplatform-core/pull/1333)
-        - [Fix possible scrolling without animation on some mouse models](https://github.com/JetBrains/compose-multiplatform-core/pull/1326)
+        - [Fix possible `UninitializedPropertyAccessException` in `desktopTest`](https://github.com/JetBrains/compose-multiplatform-core/pull/1343)
+        - [Fixed `ComposePanel.requestFocus()`, making it correctly assign focus to the first focusable child](https://github.com/JetBrains/compose-multiplatform-core/pull/1352)
+        - [When using `ComposePanel` inside a Swing application on macOS, VoiceOver will now correctly go into the `ComposePanel` when traversing accessible elements](https://github.com/JetBrains/compose-multiplatform-core/pull/1362)
+        - [When using `ComposePanel` inside a Swing application on Windows with NVDA turned on, focus will now correctly go into the `ComposePanel` when traversing with (ctrl)-shift-tab](https://github.com/JetBrains/compose-multiplatform-core/pull/1363)
+        - [Correctly save `WindowState` with unspecified `size` instead of crashing](https://github.com/JetBrains/compose-multiplatform-core/pull/1394)
+        - [Fix `IndexOutOfBoundsException` crash on Windows when traversing a11y elements](https://github.com/JetBrains/compose-multiplatform-core/pull/1415)
+        - [Fix scrolling non-same direction nested scrolls with trackpad](https://github.com/JetBrains/compose-multiplatform-core/pull/1434)
+        - [Fix fling velocity for precise wheel scroll](https://github.com/JetBrains/compose-multiplatform-core/pull/1402)
+        - [[macOS] Fix crash when right-clicking an empty `SelectionContainer` or on the padding of a `Text` inside a `SelectionContainer`](https://github.com/JetBrains/compose-multiplatform-core/pull/1439)
+        - [Fix bounds of `ComposePanel` in IntelliJ on macOs](https://github.com/JetBrains/compose-multiplatform-core/pull/1571)
+        - [Fix UI glitch when resizing a Compose window via its `WindowState`](https://github.com/JetBrains/compose-multiplatform-core/pull/1565)
         
         ### Web
         
-        - [Fixed crash when `DatePicker` text field receives illegal input](https://github.com/JetBrains/compose-multiplatform-core/pull/1368)
+        - [Process `keydown` and `keyup` keys for identified keys from virtual keyboard](https://github.com/JetBrains/compose-multiplatform-core/pull/1380)
+        - [Allow preloading the fallback fonts. This enables the usage of emojis and other unicode characters without manually composing the Text with AnnotatedString](https://github.com/JetBrains/compose-multiplatform-core/pull/1400)
+        - [Make sure the web app distribution doesn't contain a duplicate `skiko.wasm`](https://github.com/JetBrains/compose-multiplatform/pull/4958)
+        - [Prevent a crash on mobile web when selecting some text in `SelectionContainer`](https://github.com/JetBrains/compose-multiplatform-core/pull/1551)
         
         ### Resources
         
-        - [Fix a cached font if the resource acessor was changed](https://github.com/JetBrains/compose-multiplatform/pull/4864)
+        - [Delete `contextClassLoader` usage on JVM targets](https://github.com/JetBrains/compose-multiplatform/pull/4895)
+        - [Create an empty resource dir with "podspec" task instead "podInstall"](https://github.com/JetBrains/compose-multiplatform/pull/4900)
+        - [Fix resource accessors escaping. Now it is possible to use resources with names: "package", "is", "item_$xxx" etc](https://github.com/JetBrains/compose-multiplatform/pull/4901)
+        - [Read exactly requested count of bytes from InputStream on jvm platforms](https://github.com/JetBrains/compose-multiplatform/pull/4943)
+        - [Now drawables from upper DPIs will be downscalled to the expected size. (the same behavior as on Android)](https://github.com/JetBrains/compose-multiplatform/pull/5101)
         
         ### Gradle Plugin
         
-        - [Fix Compose Compiler configuration for Kotlin < 2.0 when kotlin-android or kotlin-js gradle plugins are applied](https://github.com/JetBrains/compose-multiplatform/pull/4879)
+        - [Make sure tryGetSkikoRuntimeIfNeeded is executed only during the task execution](https://github.com/JetBrains/compose-multiplatform/pull/4918)
+        - [Delete outdated build services](https://github.com/JetBrains/compose-multiplatform/pull/4959)
+        - [Support project isolation](https://github.com/JetBrains/compose-multiplatform/pull/5120)
+        - [Fix a gradle project misconfiguration when KSP and Room are used](https://github.com/JetBrains/compose-multiplatform/pull/5129)
         
         ## Dependencies
         
-        - Gradle Plugin `org.jetbrains.compose`, version `1.6.11`. Based on Jetpack Compose libraries:
-          - [Compiler 1.5.14](https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.5.14)
-          - [Runtime 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.6.7)
-          - [UI 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.6.7)
-          - [Foundation 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.6.7)
-          - [Material 1.6.7](https://developer.android.com/jetpack/androidx/releases/compose-material#1.6.7)
-          - [Material3 1.2.1](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.2.1)
+        - Gradle Plugin `org.jetbrains.compose`, version `1.7.0`. Based on Jetpack Compose libraries:
+          - [Runtime 1.7.1](https://developer.android.com/jetpack/androidx/releases/compose-runtime#1.7.1)
+          - [UI 1.7.1](https://developer.android.com/jetpack/androidx/releases/compose-ui#1.7.1)
+          - [Foundation 1.7.1](https://developer.android.com/jetpack/androidx/releases/compose-foundation#1.7.1)
+          - [Material 1.7.1](https://developer.android.com/jetpack/androidx/releases/compose-material#1.7.1)
+          - [Material3 1.3.0](https://developer.android.com/jetpack/androidx/releases/compose-material3#1.3.0)
         
-        - Lifecycle libraries `org.jetbrains.androidx.lifecycle:lifecycle-*:2.8.0`. Based on [Jetpack Lifecycle 2.8.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.0)
-        - Navigation libraries `org.jetbrains.androidx.navigation:navigation-*:2.7.0-alpha07`. Based on [Jetpack Navigation 2.7.7](https://developer.android.com/jetpack/androidx/releases/navigation#2.7.7),
-        published_at: "2024-06-03T16:27:08Z",
-        target_commitish: "70b8c44d32995233348773e78715f08819f43d5d",
+        - Lifecycle libraries `org.jetbrains.androidx.lifecycle:lifecycle-*:2.8.3`. Based on [Jetpack Lifecycle 2.8.5](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.5)
+        - Navigation libraries `org.jetbrains.androidx.navigation:navigation-*:2.8.0-alpha10`. Based on [Jetpack Navigation 2.8.0](https://developer.android.com/jetpack/androidx/releases/navigation#2.8.0)
+        - Material3 Adaptive libraries `org.jetbrains.compose.material3.adaptive:adaptive*:1.0.0`. Based on [Jetpack Material3 Adaptive 1.0.0](https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive#1.0.0)
+        ,
+        published_at: "2024-10-16T09:35:38Z",
+        target_commitish: "a5e7eed8ab77f8a7492c725f71595c103c47aabc",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.6.11" }, RepoTag { name: "v1.6.10" }, RepoTag { name: "v1.6.10-rc03" }, RepoTag { name: "v1.6.10-rc02" }, RepoTag { name: "v1.6.10-rc01" }, RepoTag { name: "v1.6.10-dev1640" }, RepoTag { name: "v1.6.10-dev1632" }, RepoTag { name: "v1.6.10-dev1613" }, RepoTag { name: "v1.6.10-dev1608" }, RepoTag { name: "v1.6.10-dev1599" }, RepoTag { name: "v1.6.10-dev1596" }])
+Ok([RepoTag { name: "v1.7.0" }, RepoTag { name: "v1.7.0-rc01" }, RepoTag { name: "v1.7.0-dev1852" }, RepoTag { name: "v1.7.0-dev1840" }, RepoTag { name: "v1.7.0-dev1809" }, RepoTag { name: "v1.7.0-dev1783" }, RepoTag { name: "v1.7.0-dev1756" }, RepoTag { name: "v1.7.0-dev1750" }, RepoTag { name: "v1.7.0-dev1743" }, RepoTag { name: "v1.7.0-dev1742" }, RepoTag { name: "v1.7.0-dev1739" }])
 
 
 Repo { owner: "Kotlin", name: "kotlinx.serialization", url: "https://github.com/Kotlin/kotlinx.serialization" }:
@@ -228,21 +354,23 @@ Ok([RepoTag { name: "1.9.0" }, RepoTag { name: "1.9.0-RC.2" }, RepoTag { name: "
 Repo { owner: "Kotlin", name: "kotlinx.atomicfu", url: "https://github.com/Kotlin/kotlinx.atomicfu" }:
 Ok(
     RepoRelease {
-        name: "0.25.0",
-        tag_name: "0.25.0",
-        body: * Got rid of posix interop (#440).
-        * Apply `atomicfu-gradle-plugin` by id [org.jetbrains.kotlinx.atomicfu](https://plugins.gradle.org/plugin/org.jetbrains.kotlinx.atomicfu) without buildscript configuration (#443)(#445).
-        * Lots of cleanups and improvements in the build scripts. Thanks, @dkrasnoff!
-        * Updated Kotlin to `2.0.0` (#442).
-        * Updated kotlinx-metadata to `2.0.0` (#441).
-        * Updated Gradle to `8.7`.,
-        published_at: "2024-06-28T14:18:04Z",
+        name: "0.26.0",
+        tag_name: "0.26.0",
+        body: * Updated Kotlin to `2.0.21` (#479).
+        * Removed JS Legacy Transformer and disabled `transformJs` flag by default (#478).
+        * Added `api` kotlinx-atomicfu dependency for JS and WASM targets (#475).
+        * Supported deprecated `linuxArm32Hfp` target (#455).
+        * Run Gradle plugin compilation via the fixed Kotlin compiler version (#472).
+        * Updated ASM to 9.7 (#473).
+        * Completed refactoring the library build scripts (#421). Kudos to @dkrasnoff! 🎉
+        * Added build caches and scans (#451).,
+        published_at: "2024-10-21T16:14:13Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "0.25.0" }, RepoTag { name: "0.24.0" }, RepoTag { name: "0.23.2" }, RepoTag { name: "0.23.1" }, RepoTag { name: "0.23.0" }, RepoTag { name: "0.22.0" }, RepoTag { name: "0.21.0" }, RepoTag { name: "0.20.2" }, RepoTag { name: "0.20.1" }, RepoTag { name: "0.20.0" }, RepoTag { name: "0.19.0" }])
+Ok([RepoTag { name: "0.26.0" }, RepoTag { name: "0.25.0" }, RepoTag { name: "0.24.0" }, RepoTag { name: "0.23.2" }, RepoTag { name: "0.23.1" }, RepoTag { name: "0.23.0" }, RepoTag { name: "0.22.0" }, RepoTag { name: "0.21.0" }, RepoTag { name: "0.20.2" }, RepoTag { name: "0.20.1" }, RepoTag { name: "0.20.0" }])
 
 
 Repo { owner: "ktorio", name: "ktor", url: "https://github.com/ktorio/ktor" }:
@@ -352,16 +480,16 @@ Ok([RepoTag { name: "1.3.1" }, RepoTag { name: "1.3.0" }, RepoTag { name: "1.2.1
 Repo { owner: "touchlab", name: "SKIE", url: "https://github.com/touchlab/SKIE" }:
 Ok(
     RepoRelease {
-        name: "0.9.2",
-        tag_name: "0.9.2",
-        body: [Change log](https://skie.touchlab.co/changelog/0.9.2),
-        published_at: "2024-10-04T15:16:32Z",
+        name: "0.9.3",
+        tag_name: "0.9.3",
+        body: [Change log](https://skie.touchlab.co/changelog/0.9.3),
+        published_at: "2024-10-15T15:49:35Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "0.9.2" }, RepoTag { name: "0.9.1" }, RepoTag { name: "0.9.0" }, RepoTag { name: "0.9.0-RC.5" }, RepoTag { name: "0.9.0-RC.4" }, RepoTag { name: "0.9.0-RC.3" }, RepoTag { name: "0.9.0-RC.2" }, RepoTag { name: "0.9.0-RC.1" }, RepoTag { name: "0.8.4" }, RepoTag { name: "0.8.3" }, RepoTag { name: "0.8.2" }])
+Ok([RepoTag { name: "0.9.3" }, RepoTag { name: "0.9.2" }, RepoTag { name: "0.9.1" }, RepoTag { name: "0.9.0" }, RepoTag { name: "0.9.0-RC.5" }, RepoTag { name: "0.9.0-RC.4" }, RepoTag { name: "0.9.0-RC.3" }, RepoTag { name: "0.9.0-RC.2" }, RepoTag { name: "0.9.0-RC.1" }, RepoTag { name: "0.8.4" }, RepoTag { name: "0.8.3" }])
 
 
 Repo { owner: "touchlab", name: "KMMBridge", url: "https://github.com/touchlab/KMMBridge" }:
@@ -384,16 +512,16 @@ Ok([RepoTag { name: "1.0.1" }, RepoTag { name: "1.0.0" }, RepoTag { name: "0.5.7
 Repo { owner: "ttypic", name: "swift-klib-plugin", url: "https://github.com/ttypic/swift-klib-plugin" }:
 Ok(
     RepoRelease {
-        name: "v0.6.3",
-        tag_name: "v0.6.3",
-        body: - Fix build issues when project path has spaces [\#26](https://github.com/ttypic/swift-klib-plugin/issues/26),
-        published_at: "2024-07-21T10:47:33Z",
+        name: "v0.6.4",
+        tag_name: "v0.6.4",
+        body: - Disable plugin on non-macOS hosts [\#39](https://github.com/ttypic/swift-klib-plugin/pull/39),
+        published_at: "2024-10-13T16:29:31Z",
         target_commitish: "main",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v0.6.3" }, RepoTag { name: "v0.6.2" }, RepoTag { name: "v0.6.1" }, RepoTag { name: "v0.6.0" }, RepoTag { name: "v0.5.1" }, RepoTag { name: "v0.5.0" }, RepoTag { name: "v0.4.0" }, RepoTag { name: "v0.3.0" }, RepoTag { name: "v0.2.1" }, RepoTag { name: "v0.2.0" }, RepoTag { name: "v0.1.0" }])
+Ok([RepoTag { name: "v0.6.4" }, RepoTag { name: "v0.6.3" }, RepoTag { name: "v0.6.2" }, RepoTag { name: "v0.6.1" }, RepoTag { name: "v0.6.0" }, RepoTag { name: "v0.5.1" }, RepoTag { name: "v0.5.0" }, RepoTag { name: "v0.4.0" }, RepoTag { name: "v0.3.0" }, RepoTag { name: "v0.2.1" }, RepoTag { name: "v0.2.0" }])
 
 
 Repo { owner: "cashapp", name: "sqldelight", url: "https://github.com/cashapp/sqldelight" }:
@@ -733,53 +861,48 @@ Ok([RepoTag { name: "3.9.1" }, RepoTag { name: "2.4.1" }, RepoTag { name: "2.2.2
 Repo { owner: "rickclephas", name: "KMP-NativeCoroutines", url: "https://github.com/rickclephas/KMP-NativeCoroutines" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-ALPHA-36",
-        tag_name: "v1.0.0-ALPHA-36",
+        name: "v1.0.0-ALPHA-37",
+        tag_name: "v1.0.0-ALPHA-37",
         body: ### Kotlin
         
-        * Updated KSP to 1.0.25
-        * Updated `kotlinx.coroutines` to 1.9.0
-        
-        ### IDE plugin
-        
-        * Added support for K2 mode,
-        published_at: "2024-09-24T17:51:15Z",
+        * Updated Kotlin to 2.0.21,
+        published_at: "2024-10-15T21:01:44Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-ALPHA-36" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-36-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-ALPHA-36-kotlin-2.0.21-RC" }, RepoTag { name: "v1.0.0-ALPHA-36-idea-2024.3-EAP-16718.32" }, RepoTag { name: "v1.0.0-ALPHA-35" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-35-spm-no-deps" }])
+Ok([RepoTag { name: "v1.0.0-ALPHA-37" }, RepoTag { name: "v1.0.0-ALPHA-37-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-37-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-37-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-37-spm-async" }, RepoTag { name: "v1.0.0-ALPHA-37-kotlin-2.1.0-Beta2" }, RepoTag { name: "v1.0.0-ALPHA-36" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-rxswift" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-no-deps" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-combine" }, RepoTag { name: "v1.0.0-ALPHA-36-spm-async" }])
 
 
 Repo { owner: "rickclephas", name: "KMM-ViewModel", url: "https://github.com/rickclephas/KMM-ViewModel" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-BETA-6",
-        tag_name: "v1.0.0-BETA-6",
-        body: * Updated `kotlinx.coroutines` to 1.9.0,
-        published_at: "2024-09-25T19:45:21Z",
+        name: "v1.0.0-BETA-7",
+        tag_name: "v1.0.0-BETA-7",
+        body: * Updated Kotlin to 2.0.21,
+        published_at: "2024-10-19T15:02:29Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-4" }, RepoTag { name: "v1.0.0-BETA-4-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-3" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-RC" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta1" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC" }])
+Ok([RepoTag { name: "v1.0.0-BETA-7" }, RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-4" }, RepoTag { name: "v1.0.0-BETA-4-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-3" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-RC" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta2" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.20-Beta1" }, RepoTag { name: "v1.0.0-BETA-3-kotlin-2.0.10-RC2" }])
 
 
 Repo { owner: "rickclephas", name: "NSExceptionKt", url: "https://github.com/rickclephas/NSExceptionKt" }:
 Ok(
     RepoRelease {
-        name: "v1.0.0-BETA-7",
-        tag_name: "v1.0.0-BETA-7",
-        body: * Updated Kotlin to 2.0.20,
-        published_at: "2024-08-27T18:44:39Z",
+        name: "v1.0.0-BETA-8",
+        tag_name: "v1.0.0-BETA-8",
+        body: * Updated Kotlin to 2.0.21,
+        published_at: "2024-10-19T20:02:07Z",
         target_commitish: "master",
         draft: false,
         prerelease: false,
     },
 )
-Ok([RepoTag { name: "v1.0.0-BETA-7" }, RepoTag { name: "v1.0.0-BETA-7-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-7-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-7-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-6-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-6-kotlin-2.0.20-RC2" }, RepoTag { name: "v1.0.0-BETA-5" }, RepoTag { name: "v1.0.0-BETA-5-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-5-spm-bugsnag" }])
+Ok([RepoTag { name: "v1.0.0-BETA-8" }, RepoTag { name: "v1.0.0-BETA-8-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-8-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-8-kotlin-2.1.0-Beta2" }, RepoTag { name: "v1.0.0-BETA-7" }, RepoTag { name: "v1.0.0-BETA-7-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-7-spm-bugsnag" }, RepoTag { name: "v1.0.0-BETA-7-kotlin-2.1.0-Beta1" }, RepoTag { name: "v1.0.0-BETA-6" }, RepoTag { name: "v1.0.0-BETA-6-spm-crashlytics" }, RepoTag { name: "v1.0.0-BETA-6-spm-bugsnag" }])
 
 
 Repo { owner: "rickclephas", name: "NSErrorKt", url: "https://github.com/rickclephas/NSErrorKt" }:
